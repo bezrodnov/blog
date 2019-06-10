@@ -1,0 +1,32 @@
+{
+  "name": "adb_medic",
+  "version": "1.0.0",
+  "description": "The project is used to store laboratory test results and to gather some analytics",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "express",
+    "monbo",
+    "MERN"
+  ],
+  "author": "Aleksey Bezrodnov",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.5.14"
+  }
+}
