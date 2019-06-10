@@ -1,0 +1,91 @@
+@import "config";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.adb-app {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  @include background;
+}
+
+.adb-app {
+  .pages {
+    position: relative;
+
+    & > .page {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      & > .container {
+        padding: 20px;
+      }
+
+      & .model-list-item {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .remove-btn {
+    color: set-text-color($primary_color);
+    margin-right: 0.5rem;
+    @include easeIn;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  .fade {
+    &-enter {
+      opacity: 0.01;
+    }
+
+    &-enter-active {
+      opacity: 1;
+      @include easeIn;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+
+    &-exit-active {
+      opacity: 0.01;
+      @include easeIn;
+    }
+  }
+
+  .navbar {
+    background-color: $primary_color !important;
+  }
+
+  .nav-item {
+    padding: 0.5rem;
+
+    a {
+      text-decoration: none;
+      color: set-text-color($primary_color);
+      @include easeIn;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+button.close {
+  outline: none !important;
+}

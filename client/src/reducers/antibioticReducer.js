@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
     case DELETE_ANTIBIOTIC:
       return {
         ...state,
-        antibiotics: state.antibiotics.filter(a => a._id != action.payload)
+        antibiotics: state.antibiotics.filter(a => a._id !== action.payload)
       };
     case ADD_ANTIBIOTIC:
       return {

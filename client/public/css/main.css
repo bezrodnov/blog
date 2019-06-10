@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box; }
+
+html,
+body,
+#root,
+.adb-app {
+  width: 100%;
+  height: 100%; }
+
+body div#bg-img::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: url("../img/background.jpg");
+  background-size: cover; }
+
+.adb-app .pages {
+  position: relative; }
+  .adb-app .pages > .page {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+    .adb-app .pages > .page > .container {
+      padding: 20px; }
+    .adb-app .pages > .page .model-list-item {
+      cursor: pointer; }
+
+.adb-app .remove-btn {
+  color: #fff;
+  margin-right: 0.5rem;
+  transition: all 0.5s ease-in; }
+  .adb-app .remove-btn:hover {
+    color: #eece1a; }
+
+.adb-app .fade-enter {
+  opacity: 0.01; }
+
+.adb-app .fade-enter-active {
+  opacity: 1;
+  transition: all 0.5s ease-in; }
+
+.adb-app .fade-exit {
+  opacity: 1; }
+
+.adb-app .fade-exit-active {
+  opacity: 0.01;
+  transition: all 0.5s ease-in; }
+
+.adb-app .navbar {
+  background-color: #444 !important; }
+
+.adb-app .nav-item {
+  padding: 0.5rem; }
+  .adb-app .nav-item a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.5s ease-in; }
+    .adb-app .nav-item a:hover {
+      color: #eece1a; }
+
+button.close {
+  outline: none !important; }
