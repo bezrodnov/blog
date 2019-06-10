@@ -18,6 +18,25 @@ body {
 }
 
 .adb-app {
+  nav.navbar {
+    .global-controls {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 16px;
+      @include easeOut;
+      color: set-text-color($primary-color);
+
+      .global-control {
+        cursor: pointer;
+        padding: 10px;
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
   .pages {
     position: relative;
     height: 100%;

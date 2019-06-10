@@ -3,8 +3,9 @@ import en_EN from "../i18n/en_EN";
 import ru_RU from "../i18n/ru_RU";
 
 const initialState = {
-  labels: en_EN
-  // labels: ru_RU
+  locale: "en_EN",
+  labels: en_EN,
+  locales: ["en_EN", "ru_RU"]
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +13,7 @@ export default (state = initialState, action) => {
     case SWITCH_LOCALE:
       return {
         ...state,
+        locale: action.payload,
         labels: getLabels(action.payload)
       };
     default:

@@ -12,8 +12,8 @@ import {
   Input
 } from "reactstrap";
 
-import { addAntibiotic } from "../actions/antibioticActions";
-import { getAntibioticTypes } from "../actions/antibioticTypeActions";
+import { addAntibiotic } from "../../actions/antibioticActions";
+import { getAntibioticTypes } from "../../actions/antibioticTypeActions";
 
 const initialState = {
   name: "",

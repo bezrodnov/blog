@@ -11,7 +11,7 @@ import {
   Input
 } from "reactstrap";
 
-import { addAntibioticType } from "../actions/antibioticTypeActions";
+import { addAntibioticType } from "../../actions/antibioticTypeActions";
 
 class AntibioticTypeModal extends Component {
   state = {

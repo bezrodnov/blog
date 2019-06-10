@@ -6,8 +6,8 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import store from "./store";
 
 import AppNavBar from "./components/AppNavBar";
-import AntibioticList from "./components/AntibioticList";
-import AntibioticTypeList from "./components/AntibioticTypeList";
+import AntibioticList from "./routes/antibiotics/AntibioticList";
+import AntibioticTypeList from "./routes/antibioticTypes/AntibioticTypeList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 

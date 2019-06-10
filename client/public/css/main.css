@@ -20,6 +20,19 @@ body div#bg-img::after {
   background: url("../img/background.jpg");
   background-size: cover; }
 
+.adb-app nav.navbar .global-controls {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  transition: all 0.5s ease-out;
+  color: #fff; }
+  .adb-app nav.navbar .global-controls .global-control {
+    cursor: pointer;
+    padding: 10px; }
+    .adb-app nav.navbar .global-controls .global-control:hover {
+      color: #eece1a; }
+
 .adb-app .pages {
   position: relative;
   height: 100%; }

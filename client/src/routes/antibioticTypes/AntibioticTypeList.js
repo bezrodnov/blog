@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import {
   getAntibioticTypes,
   deleteAntibioticType
-} from "../actions/antibioticTypeActions";
+} from "../../actions/antibioticTypeActions";
 
 import AntibioticTypeModal from "./AntibioticTypeModal";
 
