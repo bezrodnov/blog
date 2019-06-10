@@ -17,7 +17,7 @@ import { getAntibioticTypes } from "../actions/antibioticTypeActions";
 
 const initialState = {
   name: "",
-  type: null
+  type: ""
 };
 
 class AntibioticModal extends Component {
@@ -27,7 +27,7 @@ class AntibioticModal extends Component {
     const { antibiotic } = props;
     return {
       name: state.name || (antibiotic ? antibiotic.name : ""),
-      type: state.type || (antibiotic ? antibiotic.type._id : null),
+      type: state.type || (antibiotic ? antibiotic.type._id : ""),
       isNew: antibiotic && antibiotic._id
     };
   }
@@ -42,7 +42,7 @@ class AntibioticModal extends Component {
     const { antibioticTypes } = this.props.antibioticType;
     const { isNew, name, type } = this.state;
     return (
-      <Modal isOpen={this.props.show}>
+      <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
         <ModalHeader toggle={this.hide}>
           {labels["antibiotic.addModal.title"]}
         </ModalHeader>
@@ -66,7 +66,7 @@ class AntibioticModal extends Component {
                 onChange={this.onChange}
                 value={type}
               >
-                <option key="empty" value={null} />
+                <option key="empty" value="" />
                 {antibioticTypes.map(({ _id, name }) => (
                   <option key={_id} value={_id}>
                     {name}

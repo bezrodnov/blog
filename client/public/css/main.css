@@ -6,7 +6,8 @@ body,
 #root,
 .adb-app {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  overflow: hidden; }
 
 body div#bg-img::after {
   content: "";
@@ -20,17 +21,29 @@ body div#bg-img::after {
   background-size: cover; }
 
 .adb-app .pages {
-  position: relative; }
+  position: relative;
+  height: 100%; }
   .adb-app .pages > .page {
     position: absolute;
     top: 70px;
     left: 0;
     right: 0;
-    bottom: 0; }
+    bottom: 0;
+    overflow: auto; }
     .adb-app .pages > .page > .container {
       padding: 20px; }
-    .adb-app .pages > .page .model-list-item {
-      cursor: pointer; }
+    .adb-app .pages > .page .model-list {
+      opacity: 0.9; }
+      .adb-app .pages > .page .model-list .list-group-item {
+        cursor: pointer;
+        transition: all 0.5s ease-out;
+        background-color: #444;
+        color: #fff; }
+        .adb-app .pages > .page .model-list .list-group-item:hover {
+          background-color: #515151;
+          color: #eece1a; }
+    .adb-app .pages > .page .model-list-group {
+      padding: 5px 0px; }
 
 .adb-app .remove-btn {
   color: #fff;

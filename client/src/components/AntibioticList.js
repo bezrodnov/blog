@@ -21,6 +21,8 @@ class AntibioticList extends Component {
     const { antibiotics } = this.props.antibiotic;
     const { labels } = this.props.i18n;
     const { showModal, selectedAntibiotic } = this.state;
+
+    const antibioticsByType = groupAntibioticsByType(antibiotics);
     return (
       <div className="page">
         <Container>
@@ -30,31 +32,32 @@ class AntibioticList extends Component {
             requestHide={this.hideModal}
           />
           <ListGroup>
-            <TransitionGroup className="antibiotic-list">
-              {antibiotics.map(antibiotic => {
-                const { _id, name } = antibiotic;
-                return (
-                  <CSSTransition key={_id} timeout={500} classNames="fade">
-                    <ListGroupItem>
-                      <Button
-                        className="remove-btn"
-                        color="danger"
-                        size="sm"
-                        onClick={this.onDeleteClick.bind(this, _id)}
-                      >
-                        <span className="fas fa-times" />
-                      </Button>
-                      <span
-                        className="model-list-item"
-                        onClick={this.showModal.bind(this, antibiotic)}
-                      >
-                        {name}
-                      </span>
-                    </ListGroupItem>
-                  </CSSTransition>
-                );
-              })}
-            </TransitionGroup>
+            {antibioticsByType.map(({ type, antibiotics }) => (
+              <div key={type} className="model-list-group">
+                <TransitionGroup className="model-list">
+                  {antibiotics.map(antibiotic => {
+                    const { _id, name } = antibiotic;
+                    return (
+                      <CSSTransition key={_id} timeout={500} classNames="fade">
+                        <ListGroupItem
+                          onClick={this.showModal.bind(this, antibiotic)}
+                        >
+                          <Button
+                            className="remove-btn"
+                            color="danger"
+                            size="sm"
+                            onClick={e => this.onDeleteClick(e, _id)}
+                          >
+                            <span className="fas fa-times" />
+                          </Button>
+                          {name}
+                        </ListGroupItem>
+                      </CSSTransition>
+                    );
+                  })}
+                </TransitionGroup>
+              </div>
+            ))}
             <Button block onClick={this.showModal.bind(this, null)}>
               {labels["global.add"]}
             </Button>
@@ -64,9 +67,10 @@ class AntibioticList extends Component {
     );
   }
 
-  onDeleteClick = id => {
+  onDeleteClick(e, id) {
+    e.stopPropagation();
     this.props.deleteAntibiotic(id);
-  };
+  }
 
   showModal(selectedAntibiotic) {
     this.setState({ showModal: true, selectedAntibiotic });
@@ -91,3 +95,19 @@ export default connect(
   mapStateToProps,
   { getAntibiotics, deleteAntibiotic }
 )(AntibioticList);
+
+const groupAntibioticsByType = antibiotics => {
+  const types = antibiotics.reduce((types, antibiotic) => {
+    const type = antibiotic.type.name;
+    types[type] = types[type] || [];
+    types[type].push(antibiotic);
+    return types;
+  }, {});
+
+  return Object.keys(types)
+    .sort()
+    .map(type => ({
+      type,
+      antibiotics: types[type].sort((a, b) => a.name.localeCompare(b.name))
+    }));
+};
