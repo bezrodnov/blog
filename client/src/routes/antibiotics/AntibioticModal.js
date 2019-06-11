@@ -32,7 +32,7 @@ class AntibioticModal extends Component {
   }
 
   render() {
-    const { labels } = this.props.i18n;
+    const { labels } = this.props.settings;
     const { antibioticTypes } = this.props.antibioticType;
     const { isNew, name, type } = this.state;
     return (
@@ -103,9 +103,9 @@ AntibioticModal.propTypes = {
   })
 };
 
-const mapStateToProps = ({ antibioticType, i18n }) => ({
+const mapStateToProps = ({ antibioticType, settings }) => ({
   antibioticType,
-  i18n
+  settings
 });
 
 export default connect(

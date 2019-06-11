@@ -12,11 +12,11 @@ import {
   Input
 } from "reactstrap";
 
-import { switchLocale } from "../actions/i18nActions";
+import { switchLocale } from "../actions/settingsActions";
 
 class SettingsModal extends Component {
   render() {
-    const { locales, locale, labels } = this.props.i18n;
+    const { locales, locale, labels } = this.props.settings;
     return (
       <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
         <ModalHeader toggle={this.hide}>
@@ -68,11 +68,11 @@ class SettingsModal extends Component {
 SettingsModal.propTypes = {
   show: PropTypes.bool,
   requestHide: PropTypes.func.isRequired,
-  i18n: PropTypes.object
+  settings: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  i18n: state.i18n
+  settings: state.settings
 });
 
 export default connect(

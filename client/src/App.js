@@ -24,8 +24,8 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <GlobalDataLoader />
           <div id="bg-img" className="adb-app">
+            <GlobalDataLoader />
             <AppNavBar />
             <Route
               render={({ location }) => (

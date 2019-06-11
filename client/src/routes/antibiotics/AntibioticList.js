@@ -4,10 +4,7 @@ import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 
-import {
-  getAntibiotics,
-  deleteAntibiotic
-} from "../../actions/antibioticActions";
+import { deleteAntibiotic } from "../../actions/antibioticActions";
 
 import AntibioticModal from "./AntibioticModal";
 
@@ -16,13 +13,9 @@ class AntibioticList extends Component {
     showModal: false
   };
 
-  componentDidMount() {
-    this.props.getAntibiotics();
-  }
-
   render() {
     const { antibiotics } = this.props.antibiotic;
-    const { labels } = this.props.i18n;
+    const { labels } = this.props.settings;
     const { showModal, selectedAntibiotic } = this.state;
 
     const antibioticsByType = groupAntibioticsByType(antibiotics);
@@ -85,18 +78,17 @@ class AntibioticList extends Component {
 }
 
 AntibioticList.propTypes = {
-  getAntibiotics: PropTypes.func.isRequired,
   antibiotic: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ antibiotic, i18n }) => ({
+const mapStateToProps = ({ antibiotic, settings }) => ({
   antibiotic,
-  i18n
+  settings
 });
 
 export default connect(
   mapStateToProps,
-  { getAntibiotics, deleteAntibiotic }
+  { deleteAntibiotic }
 )(AntibioticList);
 
 const groupAntibioticsByType = antibiotics => {

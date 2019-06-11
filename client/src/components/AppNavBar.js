@@ -20,7 +20,7 @@ class AppNavBar extends Component {
 
   render() {
     const { showSettings, isOpen } = this.state;
-    const { labels } = this.props.i18n;
+    const { labels } = this.props.settings;
 
     const toggleSettings = this.toggle.bind(this, "showSettings");
     const toggleNavbar = this.toggle.bind(this, "isOpen");
@@ -61,5 +61,5 @@ class AppNavBar extends Component {
   }
 }
 
-const mapStateToProps = ({ i18n }) => ({ i18n });
+const mapStateToProps = ({ settings }) => ({ settings });
 export default connect(mapStateToProps)(AppNavBar);

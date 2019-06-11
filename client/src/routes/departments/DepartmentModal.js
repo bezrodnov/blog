@@ -30,7 +30,7 @@ class DepartmentModal extends Component {
   }
 
   render() {
-    const { labels } = this.props.i18n;
+    const { labels } = this.props.settings;
     const { isNew, name } = this.state;
     return (
       <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
@@ -85,8 +85,8 @@ DepartmentModal.propTypes = {
   })
 };
 
-const mapStateToProps = ({ i18n }) => ({
-  i18n
+const mapStateToProps = ({ settings }) => ({
+  settings
 });
 
 export default connect(

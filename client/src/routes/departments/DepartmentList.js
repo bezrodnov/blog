@@ -22,7 +22,7 @@ class DepartmentList extends Component {
 
   render() {
     const { departments } = this.props.department;
-    const { labels } = this.props.i18n;
+    const { labels } = this.props.settings;
     const { showModal, selectedDepartment } = this.state;
 
     return (
@@ -86,9 +86,9 @@ DepartmentList.propTypes = {
   department: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ department, i18n }) => ({
+const mapStateToProps = ({ department, settings }) => ({
   department,
-  i18n
+  settings
 });
 
 export default connect(
