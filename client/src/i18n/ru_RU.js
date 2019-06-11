@@ -15,13 +15,23 @@ export default {
   "settingsModal.title": "Настройки",
   "settingsModal.locale": "Язык",
 
-  "antibiotic.addModal.title": "Добавить Антибиотик",
-  "antibiotic.addModal.name.placeholder": "Название Антибиотика",
+  "antibiotic.createModal.title": "Добавить Антибиотик",
+  "antibiotic.updateModal.title": "Обновить Антибиотик",
 
-  "department.addModal.title": "Добавить Отделение",
-  "department.addModal.name.placeholder": "Название Отделения",
+  "antibioticType.createModal.title": "Добавить Тип Антибиотика",
+  "antibioticType.updateModal.title": "Обновить Тип Антибиотика",
+
+  "department.createModal.title": "Добавить Отделение",
+  "department.updateModal.title": "Обновить Отделение",
 
   "antibiotic.name": "Название",
+  "antibiotic.name.placeholder": "Название Антибиотика",
   "antibiotic.type": "Тип",
-  "department.name": "Название"
+  "antibiotic.type.placeholder": "Тип Антибиотика",
+
+  "antibioticType.name": "Название",
+  "antibioticType.name.placeholder": "Тип Антибиотика",
+
+  "department.name": "Наименование",
+  "department.name.placeholder": "Наименование Отделения"
 };

@@ -2,40 +2,40 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { connect } from "react-redux";
 
-import { deleteDepartment } from "../../actions/departmentActions";
+import ModelModal from "./ModelModal";
 
-import DepartmentModal from "./DepartmentModal";
-
-class DepartmentList extends Component {
+class ModelList extends Component {
   state = {
     showModal: false
   };
 
   render() {
-    const { departments } = this.props.department;
-    const { labels } = this.props.settings;
-    const { showModal, selectedDepartment } = this.state;
+    const { modelName, settings, createAction, updateAction } = this.props;
+    const { labels } = settings;
+    const items = this.props[modelName][modelName + "s"];
 
+    const { showModal, selected } = this.state;
     return (
       <div className="page">
         <Container>
-          <DepartmentModal
+          <ModelModal
+            modelName={modelName}
+            model={selected}
+            labels={labels}
             show={showModal}
-            department={selectedDepartment}
             requestHide={this.hideModal}
+            createAction={createAction}
+            updateAction={updateAction}
           />
           <ListGroup>
-            <div className="model-list-group">
+            <div className={`model-list-group ${modelName}-model-list-group`}>
               <TransitionGroup className="model-list">
-                {departments.map(department => {
-                  const { _id, name } = department;
+                {items.map(item => {
+                  const { _id, name } = item;
                   return (
                     <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem
-                        onClick={this.showModal.bind(this, department)}
-                      >
+                      <ListGroupItem onClick={this.showModal.bind(this, item)}>
                         <Button
                           className="remove-btn"
                           color="danger"
@@ -62,28 +62,23 @@ class DepartmentList extends Component {
 
   onDeleteClick(e, id) {
     e.stopPropagation();
-    this.props.deleteDepartment(id);
+    this.props.deleteAction(id);
   }
 
-  showModal(selectedDepartment) {
-    this.setState({ showModal: true, selectedDepartment });
+  showModal(selected) {
+    this.setState({ showModal: true, selected });
   }
 
   hideModal = () => {
-    this.setState({ showModal: false, selectedDepartment: null });
+    this.setState({ showModal: false, selected: null });
   };
 }
 
-DepartmentList.propTypes = {
-  department: PropTypes.object.isRequired
+ModelList.propTypes = {
+  modelName: PropTypes.string.isRequired,
+  createAction: PropTypes.func.isRequired,
+  updateAction: PropTypes.func.isRequired,
+  deleteAction: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ department, settings }) => ({
-  department,
-  settings
-});
-
-export default connect(
-  mapStateToProps,
-  { deleteDepartment }
-)(DepartmentList);
+export default ModelList;

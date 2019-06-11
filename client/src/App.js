@@ -3,21 +3,11 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
-import store from "./store";
-
-import GlobalDataLoader from "./components/GlobalDataLoader";
-import AppNavBar from "./components/AppNavBar";
-import AntibioticList from "./routes/antibiotics/AntibioticList";
-import AntibioticTypeList from "./routes/antibioticTypes/AntibioticTypeList";
-import DepartmentList from "./routes/departments/DepartmentList";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const paths = [
-  { path: "/antibiotics", component: AntibioticList },
-  { path: "/antibioticTypes", component: AntibioticTypeList },
-  { path: "/departments", component: DepartmentList }
-];
+import AppNavBar from "./components/AppNavBar";
+import StoreManager from "./ADBStoreManager";
+const store = StoreManager.getStore(true);
 
 export default class App extends Component {
   render() {
@@ -25,7 +15,6 @@ export default class App extends Component {
       <Provider store={store}>
         <Router>
           <div id="bg-img" className="adb-app">
-            <GlobalDataLoader />
             <AppNavBar />
             <Route
               render={({ location }) => (
@@ -36,7 +25,7 @@ export default class App extends Component {
                     timeout={500}
                   >
                     <Switch location={location}>
-                      {paths.map(({ path, component }) => (
+                      {StoreManager.getRoutes().map(({ path, component }) => (
                         <Route
                           key={path}
                           exact

@@ -15,13 +15,23 @@ export default {
   "settingsModal.title": "Settings",
   "settingsModal.locale": "Language",
 
-  "antibiotic.addModal.title": "Add Antibiotic",
-  "antibiotic.addModal.name.placeholder": "Antibiotic Name",
+  "antibiotic.createModal.title": "Add Antibiotic",
+  "antibiotic.updateModal.title": "Update Antibiotic",
 
-  "department.addModal.title": "Add Department",
-  "department.addModal.name.placeholder": "Department Name",
+  "antibioticType.createModal.title": "Add Antibiotic Type",
+  "antibioticType.updateModal.title": "Update Antibiotic Type",
+
+  "department.createModal.title": "Add Department",
+  "department.updateModal.title": "Update Department",
 
   "antibiotic.name": "Name",
+  "antibiotic.name.placeholder": "Antibiotic Name",
   "antibiotic.type": "Type",
-  "department.name": "Name"
+  "antibiotic.type.placeholder": "Antibiotic Type",
+
+  "antibioticType.name": "Name",
+  "antibioticType.name.placeholder": "Antibiotic Type Name",
+
+  "department.name": "Name",
+  "department.name.placeholder": "Department Name"
 };
