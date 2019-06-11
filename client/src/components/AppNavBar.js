@@ -38,6 +38,9 @@ class AppNavBar extends Component {
                   {labels["nav.antibioticTypes"]}
                 </Link>
               </NavItem>
+              <NavItem>
+                <Link to="/departments">{labels["nav.departments"]}</Link>
+              </NavItem>
             </Nav>
             <div className="global-controls">
               <span

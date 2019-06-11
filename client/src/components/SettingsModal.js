@@ -35,7 +35,7 @@ class SettingsModal extends Component {
               >
                 {locales.map(locale => (
                   <option key={locale} value={locale}>
-                    {locale}
+                    {labels[`locale.${locale}`]}
                   </option>
                 ))}
               </Input>

@@ -2,15 +2,20 @@ import { SWITCH_LOCALE } from "../actions/types";
 import en_EN from "../i18n/en_EN";
 import ru_RU from "../i18n/ru_RU";
 
+const DEFAULT_LOCALE = "en_EN";
+const LOCALES = { en_EN, ru_RU };
+
+const initialLocale = loadLocale();
 const initialState = {
-  locale: "en_EN",
-  labels: en_EN,
+  locale: initialLocale,
+  labels: getLabels(initialLocale),
   locales: ["en_EN", "ru_RU"]
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SWITCH_LOCALE:
+      saveLocale(action.payload);
       return {
         ...state,
         locale: action.payload,
@@ -21,13 +26,19 @@ export default (state = initialState, action) => {
   }
 };
 
-const getLabels = locale => {
-  switch (locale) {
-    case "en_EN":
-      return en_EN;
-    case "ru_RU":
-      return ru_RU;
-    default:
-      return en_EN;
+function getLabels(locale) {
+  return LOCALES[locale] || DEFAULT_LOCALE;
+}
+
+function loadLocale() {
+  if (window.localStorage) {
+    return localStorage.getItem("adbMedic.locale") || DEFAULT_LOCALE;
   }
-};
+  return DEFAULT_LOCALE;
+}
+
+function saveLocale(locale) {
+  if (window.localStorage) {
+    window.localStorage.setItem("adbMedic.locale", locale);
+  }
+}

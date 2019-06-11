@@ -12,61 +12,43 @@ import {
   Input
 } from "reactstrap";
 
-import { addAntibiotic } from "../../actions/antibioticActions";
+import { addDepartment } from "../../actions/departmentActions";
 
 const initialState = {
-  name: "",
-  type: ""
+  name: ""
 };
 
-class AntibioticModal extends Component {
+class DepartmentModal extends Component {
   state = initialState;
 
   static getDerivedStateFromProps(props, state) {
-    const { antibiotic } = props;
+    const { department } = props;
     return {
-      name: state.name || (antibiotic ? antibiotic.name : ""),
-      type: state.type || (antibiotic ? antibiotic.type._id : ""),
-      isNew: antibiotic && antibiotic._id
+      name: state.name || (department ? department.name : ""),
+      isNew: department && department._id
     };
   }
 
   render() {
     const { labels } = this.props.i18n;
-    const { antibioticTypes } = this.props.antibioticType;
-    const { isNew, name, type } = this.state;
+    const { isNew, name } = this.state;
     return (
       <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
         <ModalHeader toggle={this.hide}>
-          {labels["antibiotic.addModal.title"]}
+          {labels["department.addModal.title"]}
         </ModalHeader>
         <ModalBody>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
-              <Label for="name">{labels["antibiotic.name"]}</Label>
+              <Label for="name">{labels["department.name"]}</Label>
               <Input
                 type="text"
                 name="name"
                 id="name"
-                placeholder={labels["antibiotic.addModal.name.placeholder"]}
+                placeholder={labels["department.addModal.name.placeholder"]}
                 onChange={this.onChange}
                 value={name}
               />
-              <Label for="type">{labels["antibiotic.type"]}</Label>
-              <Input
-                type="select"
-                name="type"
-                id="type"
-                onChange={this.onChange}
-                value={type}
-              >
-                <option key="empty" value="" />
-                {antibioticTypes.map(({ _id, name }) => (
-                  <option key={_id} value={_id}>
-                    {name}
-                  </option>
-                ))}
-              </Input>
               <Button color="dark" style={{ marginTop: "2rem" }} block>
                 {labels["global.save"]}
               </Button>
@@ -79,8 +61,8 @@ class AntibioticModal extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { name, type } = this.state;
-    this.props.addAntibiotic({ name, type });
+    const { name } = this.state;
+    this.props.addDepartment({ name });
     this.hide();
   };
 
@@ -94,21 +76,20 @@ class AntibioticModal extends Component {
   };
 }
 
-AntibioticModal.propTypes = {
+DepartmentModal.propTypes = {
   show: PropTypes.bool,
   requestHide: PropTypes.func.isRequired,
-  antibiotic: PropTypes.shape({
+  department: PropTypes.shape({
     name: PropTypes.string,
     type: PropTypes.object
   })
 };
 
-const mapStateToProps = ({ antibioticType, i18n }) => ({
-  antibioticType,
+const mapStateToProps = ({ i18n }) => ({
   i18n
 });
 
 export default connect(
   mapStateToProps,
-  { addAntibiotic }
-)(AntibioticModal);
+  { addDepartment }
+)(DepartmentModal);

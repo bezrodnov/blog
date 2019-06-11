@@ -5,15 +5,18 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import store from "./store";
 
+import GlobalDataLoader from "./components/GlobalDataLoader";
 import AppNavBar from "./components/AppNavBar";
 import AntibioticList from "./routes/antibiotics/AntibioticList";
 import AntibioticTypeList from "./routes/antibioticTypes/AntibioticTypeList";
+import DepartmentList from "./routes/departments/DepartmentList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const paths = [
   { path: "/antibiotics", component: AntibioticList },
-  { path: "/antibioticTypes", component: AntibioticTypeList }
+  { path: "/antibioticTypes", component: AntibioticTypeList },
+  { path: "/departments", component: DepartmentList }
 ];
 
 export default class App extends Component {
@@ -21,6 +24,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <Router>
+          <GlobalDataLoader />
           <div id="bg-img" className="adb-app">
             <AppNavBar />
             <Route
