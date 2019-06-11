@@ -42,8 +42,8 @@ export default (state = loadInitialState(), action) => {
     case SWITCH_LOCALE:
       return compose(
         saveLocale,
-        setDocumentTitle,
-        setLabels
+        setLabels,
+        setDocumentTitle
       )({ ...state, locale: action.payload });
     default:
       return state;
