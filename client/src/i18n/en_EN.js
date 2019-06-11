@@ -1,4 +1,6 @@
 export default {
+  "adb.title": "My Laboratory",
+
   "global.add": "Add",
   "global.save": "Save",
   "global.close": "Close",

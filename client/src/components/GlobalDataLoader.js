@@ -19,6 +19,6 @@ class GlobalDataLoader extends Component {
 }
 
 export default connect(
-  () => {},
+  () => ({}),
   { getAntibioticTypes, getAntibiotics, getDepartments }
 )(GlobalDataLoader);

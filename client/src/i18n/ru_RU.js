@@ -1,4 +1,6 @@
 export default {
+  "adb.title": "Моя Лаборатория",
+
   "global.add": "Добавить",
   "global.save": "Сохранить",
   "global.close": "Закрыть",
