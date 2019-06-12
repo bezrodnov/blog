@@ -6,6 +6,7 @@ const path = require("path");
 const antibiotics = require("./routes/api/antibiotics");
 const antibioticTypes = require("./routes/api/antibioticTypes");
 const departments = require("./routes/api/departments");
+const model = require("./routes/api/model");
 
 const app = express();
 
@@ -25,6 +26,7 @@ mongoose
 app.use("/api/antibiotics", antibiotics);
 app.use("/api/antibioticTypes", antibioticTypes);
 app.use("/api/departments", departments);
+app.use("/api/model", model);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

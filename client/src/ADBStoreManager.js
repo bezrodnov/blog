@@ -1,4 +1,4 @@
-import StoreManager from "./crud/StoreManager";
+import StoreManager from "./StoreManager";
 import settingsReducer from "./reducers/settingsReducer";
 
 const ADBStoreManager = new StoreManager();

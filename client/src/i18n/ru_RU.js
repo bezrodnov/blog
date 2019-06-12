@@ -1,5 +1,5 @@
 export default {
-  "adb.title": "Моя Лаборатория",
+  "adb.title": "Медицинская Лаборатория",
 
   "global.add": "Добавить",
   "global.save": "Сохранить",

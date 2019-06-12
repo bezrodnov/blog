@@ -9,5 +9,5 @@ const AntibioticTypeSchema = new Schema({
   }
 });
 
-const AntibioticType = mongoose.model("antibiotic_type", AntibioticTypeSchema);
+const AntibioticType = mongoose.model("antibioticType", AntibioticTypeSchema);
 module.exports = AntibioticType;

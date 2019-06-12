@@ -7,7 +7,8 @@ const AntibioticType = require("./AntibioticType");
 const AntibioticSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    index: true
   },
   type: AntibioticType.prototype.schema
 });

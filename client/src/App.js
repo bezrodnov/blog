@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import AppNavBar from "./components/AppNavBar";
 import StoreManager from "./ADBStoreManager";
-const store = StoreManager.getStore(true);
+const store = StoreManager.getStore();
 
 export default class App extends Component {
   render() {

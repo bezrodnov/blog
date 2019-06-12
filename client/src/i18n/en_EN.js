@@ -1,5 +1,5 @@
 export default {
-  "adb.title": "My Laboratory",
+  "adb.title": "Medic Laboratory",
 
   "global.add": "Add",
   "global.save": "Save",
