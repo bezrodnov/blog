@@ -10,6 +10,7 @@ import {
   Container
 } from "reactstrap";
 
+import ModelStoreContext from "../ModelStoreContext";
 import SettingsModal from "./SettingsModal";
 
 class AppNavBar extends Component {
@@ -30,17 +31,17 @@ class AppNavBar extends Component {
           <NavbarToggler onClick={toggleNavbar} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
-              <NavItem>
-                <Link to="/antibiotics">{labels["nav.antibiotics"]}</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/antibioticTypes">
-                  {labels["nav.antibioticTypes"]}
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/departments">{labels["nav.departments"]}</Link>
-              </NavItem>
+              <ModelStoreContext.Consumer>
+                {({ models }) =>
+                  models.map(({ modelName }) => (
+                    <NavItem key={modelName}>
+                      <Link to={`/${modelName}s`}>
+                        {labels[`nav.${modelName}s`]}
+                      </Link>
+                    </NavItem>
+                  ))
+                }
+              </ModelStoreContext.Consumer>
             </Nav>
             <div className="global-controls">
               <span

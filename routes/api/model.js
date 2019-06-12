@@ -10,29 +10,33 @@ const models = [AntibioticType, Antibiotic, Department];
 
 router.get("/schema", (req, res) => {
   // build all models schema for use in UI
-  const fullSchema = models.reduce((fullSchema, model) => {
-    fullSchema[model.modelName] = {};
-    Object.keys(model.prototype.schema.paths).forEach(pathName => {
-      if (["_id", "__v"].indexOf(pathName) >= 0) {
+  const fullSchema = models.map(model => {
+    const fields = [];
+    Object.keys(model.prototype.schema.paths).forEach(name => {
+      if (["_id", "__v"].indexOf(name) >= 0) {
         // skip system fields
         return;
       }
 
-      const path = model.prototype.schema.paths[pathName];
-      const currentSchema = { type: path.instance };
+      const path = model.prototype.schema.paths[name];
+      const field = { name, type: path.instance };
+      fields.push(field);
 
       if (path.instance === "Embedded") {
         models.some(other => {
           if (path.schema.$id === other.prototype.schema.$id) {
-            currentSchema.ref = other.modelName;
+            field.ref = other.modelName;
             return true;
           }
         });
       }
-      fullSchema[model.modelName][pathName] = currentSchema;
     });
-    return fullSchema;
-  }, {});
+
+    return {
+      modelName: model.modelName,
+      fields
+    };
+  });
 
   res.json(fullSchema);
 });

@@ -21,7 +21,8 @@ $home-image: url("../img/background.jpg");
 
 @mixin background {
   @if $show-home-image {
-    & div#bg-img {
+    &#bg-img,
+    #bg-img {
       &::after {
         content: "";
         position: fixed;

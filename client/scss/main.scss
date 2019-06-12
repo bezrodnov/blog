@@ -13,12 +13,109 @@ body,
   overflow: hidden;
 }
 
-body {
-  @include background;
-}
-
 .adb-app {
+  @include background;
+
+  .loading-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    // transparent overlay
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: $primary-color;
+      opacity: 0.5;
+    }
+
+    & div {
+      position: absolute;
+      top: calc(50% - 12px);
+      left: calc(50% - 12px);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      @include easeIn;
+      opacity: 0;
+      animation: loading-mask 3s infinite, loading-mask-appear 1s 1;
+      animation-fill-mode: forwards;
+
+      &:nth-child(1) {
+        background: #ce3333;
+      }
+      &:nth-child(2) {
+        background: #33ce33;
+        animation-delay: 1s;
+      }
+      &:nth-child(3) {
+        background: #3333ce;
+        animation-delay: 2s;
+      }
+    }
+
+    @keyframes loading-mask-appear {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes loading-mask {
+      0% {
+        margin-left: 0px;
+        margin-top: 0px;
+        width: 25px;
+        height: 25px;
+      }
+
+      25% {
+        margin-left: 50px;
+        margin-top: -50px;
+        width: 15px;
+        height: 15px;
+      }
+
+      50% {
+        margin-left: 100px;
+        margin-top: 0px;
+        width: 25px;
+        height: 25px;
+      }
+
+      75% {
+        margin-left: 50px;
+        margin-top: 50px;
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+
   nav.navbar {
+    background-color: $primary_color !important;
+
+    .nav-item {
+      padding: 0.5rem;
+
+      a {
+        text-decoration: none;
+        color: set-text-color($primary_color);
+        @include easeIn;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+
     .global-controls {
       flex: 1;
       display: flex;
@@ -102,24 +199,6 @@ body {
     &-exit-active {
       opacity: 0.01;
       @include easeIn;
-    }
-  }
-
-  .navbar {
-    background-color: $primary_color !important;
-  }
-
-  .nav-item {
-    padding: 0.5rem;
-
-    a {
-      text-decoration: none;
-      color: set-text-color($primary_color);
-      @include easeIn;
-
-      &:hover {
-        color: $secondary-color;
-      }
     }
   }
 }
