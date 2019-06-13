@@ -11,9 +11,15 @@ class ModelList extends Component {
   };
 
   render() {
-    const { modelName, settings, createAction, updateAction } = this.props;
+    const {
+      model,
+      modelName,
+      settings,
+      createAction,
+      updateAction
+    } = this.props;
     const { labels } = settings;
-    const items = this.props[modelName][modelName + "s"];
+    const { items } = model;
 
     const { showModal, selected } = this.state;
     return (

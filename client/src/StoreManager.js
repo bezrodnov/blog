@@ -30,9 +30,9 @@ class StoreManager {
     this.entities[name] = composeLeft(
       generateActionTypes,
       generateActions,
-      generateReducer,
-      generateRoute
+      generateReducer
     )({
+      _isModel: true,
       name,
       fields,
       roles,
@@ -40,17 +40,32 @@ class StoreManager {
     });
   }
 
+  // TODO: refactor: move somewhere else
   getRoutes(role) {
+    const generateModelListComponent = model => {
+      const { name, createAction, updateAction, deleteAction } = model;
+
+      const mapStateToProps = state => ({
+        model: state[name],
+        settings: state["settings"],
+        modelName: name
+      });
+      const mapDispatchToProps = { createAction, updateAction, deleteAction };
+
+      return connect(
+        mapStateToProps,
+        mapDispatchToProps
+      )(model.modelListComponent || ModelList);
+    };
+
     return Object.values(this.entities)
       .filter(
         entity =>
-          entity.path &&
-          entity.modelListComponent &&
-          (!entity.roles || entity.roles.indexOf(role) >= 0)
+          entity._isModel && (!entity.roles || entity.roles.indexOf(role) >= 0)
       )
-      .map(entity => ({
-        path: entity.path,
-        component: entity.modelListComponent
+      .map(model => ({
+        path: `/${model.name}s`,
+        component: generateModelListComponent(model)
       }));
   }
 
@@ -98,30 +113,6 @@ const generateActionTypes = cfg => ({
   loadActionType: `LOAD_${cfg.name.toUpperCase()}`,
   setLoadingActionType: `SET_${cfg.name.toUpperCase()}_LOADING`
 });
-
-const generateRoute = cfg => {
-  const mapStateToProps = state => ({
-    [cfg.name]: state[cfg.name],
-    settings: state.settings,
-    modelName: cfg.name
-  });
-  const mapDispatchToProps = {
-    createAction: cfg.createAction,
-    updateAction: cfg.updateAction,
-    deleteAction: cfg.deleteAction
-  };
-
-  const modelListComponent = connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(cfg.modelListComponent || ModelList);
-
-  return {
-    ...cfg,
-    path: `/${cfg.name}s`,
-    modelListComponent: modelListComponent
-  };
-};
 
 const generateActions = cfg => {
   const createAction = model => dispatch => {
@@ -194,12 +185,12 @@ const generateActions = cfg => {
 };
 
 const generateReducer = cfg => {
-  const arrProp = `${cfg.name}s`;
-  const loadingProp = `loading${arrProp[0].toUpperCase() + arrProp.substr(1)}`;
+  // const arrProp = `${cfg.name}s`;
+  // const loadingProp = `loading${arrProp[0].toUpperCase() + arrProp.substr(1)}`;
 
   const initialState = {
-    [arrProp]: [],
-    [loadingProp]: false
+    items: [],
+    loading: false
   };
 
   return {
@@ -209,13 +200,13 @@ const generateReducer = cfg => {
         case cfg.createActionType:
           return {
             ...state,
-            [arrProp]: [action.payload, ...state[arrProp]]
+            items: [action.payload, ...state.items]
           };
 
         case cfg.updateActionType:
           return {
             ...state,
-            [arrProp]: state[arrProp].map(m =>
+            items: state.items.map(m =>
               m._id === action.payload._id ? action.payload : m
             )
           };
@@ -223,20 +214,20 @@ const generateReducer = cfg => {
         case cfg.deleteActionType:
           return {
             ...state,
-            [arrProp]: state[arrProp].filter(m => m._id !== action.payload)
+            items: state.items.filter(m => m._id !== action.payload)
           };
 
         case cfg.loadActionType:
           return {
             ...state,
-            [loadingProp]: false,
-            [arrProp]: action.payload
+            loading: false,
+            items: action.payload
           };
 
         case cfg.setLoadingActionType:
           return {
             ...state,
-            [loadingProp]: true
+            loading: true
           };
 
         default:
