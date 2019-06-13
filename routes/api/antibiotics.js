@@ -13,16 +13,31 @@ router.get("/", (req, res) => {
 });
 
 // @route   POST api/antibiotics
-// @desc    Create Antibiotic
+// @desc    Create/Update Antibiotic
 // @access  Public
 router.post("/", (req, res) => {
-  AntibioticType.findById(req.body.type).then(type => {
-    const newAntibiotic = new Antibiotic({
-      name: req.body.name,
-      type
+  if (req.body._id) {
+    // update use-case
+    // TODO: find referenced antibiotic type and embed
+    const { _id, __v, ...updates } = req.body;
+    const filter = { _id: req.body._id };
+    Antibiotic.updateOne(filter, updates).then(({ ok }) => {
+      if (ok) {
+        Antibiotic.findById(req.body._id).then(item => res.json(item));
+      } else {
+        // TODO: error processing
+      }
     });
-    newAntibiotic.save().then(item => res.json(item));
-  });
+  } else {
+    // create use-case
+    AntibioticType.findById(req.body.type).then(type => {
+      const antibiotic = new Antibiotic({
+        name: req.body.name,
+        type
+      });
+      antibiotic.save().then(item => res.json(item));
+    });
+  }
 });
 
 // @route   DELETE api/antibiotics/:id

@@ -43,12 +43,27 @@ class StoreManager {
   // TODO: refactor: move somewhere else
   getRoutes(role) {
     const generateModelListComponent = model => {
-      const { name, createAction, updateAction, deleteAction } = model;
+      const { name, createAction, updateAction, deleteAction, fields } = model;
+
+      const mapChildModels = state =>
+        fields
+          .filter(field => field.type === "Embedded")
+          .reduce((childModels, field) => {
+            const childModel = Object.values(this.entities).find(
+              entity => entity._isModel && entity.name === field.ref
+            );
+            if (childModel) {
+              childModels[childModel.name] = state[childModel.name];
+            }
+            return childModels;
+          }, {});
 
       const mapStateToProps = state => ({
-        model: state[name],
+        modelName: name,
         settings: state["settings"],
-        modelName: name
+        model: state[name],
+        childModels: mapChildModels(state),
+        fields
       });
       const mapDispatchToProps = { createAction, updateAction, deleteAction };
 
@@ -91,7 +106,6 @@ class StoreManager {
       )
     );
 
-    console.log("loading data into the store...");
     Object.values(this.entities).forEach(entity => {
       // TODO: add config to skip loading by default for some models
       if (entity.loadAction) {
@@ -131,7 +145,7 @@ const generateActions = cfg => {
 
   const updateAction = model => dispatch => {
     axios
-      .post(`/api/${cfg.name}s/${model._id}`, model)
+      .post(`/api/${cfg.name}s`, model)
       .then(res => {
         dispatch({
           type: cfg.updateActionType,
@@ -145,11 +159,11 @@ const generateActions = cfg => {
 
   const deleteAction = id => dispatch => {
     axios
-      .delete(`/api/${cfg.name}s`, id)
+      .delete(`/api/${cfg.name}s/${id}`)
       .then(res => {
         dispatch({
           type: cfg.deleteActionType,
-          payload: res.data
+          payload: id
         });
       })
       .catch(e => {
@@ -185,9 +199,6 @@ const generateActions = cfg => {
 };
 
 const generateReducer = cfg => {
-  // const arrProp = `${cfg.name}s`;
-  // const loadingProp = `loading${arrProp[0].toUpperCase() + arrProp.substr(1)}`;
-
   const initialState = {
     items: [],
     loading: false

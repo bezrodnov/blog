@@ -7,7 +7,7 @@ body .loading-mask {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000; }
+  z-index: 1000; }
   body .loading-mask::before {
     content: "";
     position: absolute;

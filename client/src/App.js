@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
@@ -17,10 +17,10 @@ export default class App extends Component {
       <ModelStoreProvider modelSchemaURL="/api/model/schema">
         <div id="bg-img" className="adb-app">
           <ModelStoreContext.Consumer>
-            {({ store, routes }) => (
+            {({ store, routes, models }) => (
               <TransitionGroup component={null}>
-                {this.renderLoadingMask(store)}
-                {this.renderApp(store, routes)}
+                {this.renderLoadingMask(store, models)}
+                {this.renderContent(store, routes)}
               </TransitionGroup>
             )}
           </ModelStoreContext.Consumer>
@@ -29,18 +29,22 @@ export default class App extends Component {
     );
   }
 
-  renderLoadingMask(store) {
+  renderLoadingMask(store, models = []) {
     if (store) {
-      return null;
+      const mapStateToProps = state => ({
+        show: models.some(({ modelName }) => state[modelName].loading === true)
+      });
+      const ConnectedMask = connect(mapStateToProps)(LoadingMask);
+      return (
+        <Provider store={store} key="connected-loading-mask">
+          <ConnectedMask />
+        </Provider>
+      );
     }
-    return (
-      <CSSTransition classNames="fade" timeout={1000}>
-        <LoadingMask key="loading-mask" />
-      </CSSTransition>
-    );
+    return <LoadingMask key="loading-mask" show={!!store} />;
   }
 
-  renderApp(store, routes) {
+  renderContent(store, routes) {
     if (!store) {
       return null;
     }
@@ -52,7 +56,7 @@ export default class App extends Component {
               <AppNavBar key="navbar" path={location.pathname} />,
               <TransitionGroup key="pages" className="pages">
                 <CSSTransition
-                  key={location.key}
+                  key={location.pathname}
                   classNames="fade"
                   timeout={500}
                 >

@@ -12,14 +12,28 @@ router.get("/", (req, res) => {
 });
 
 // @route   POST api/departments
-// @desc    Create Department
+// @desc    Create/Update Department
 // @access  Public
 router.post("/", (req, res) => {
-  const newDepartment = new Department({
-    name: req.body.name
-  });
+  if (req.body._id) {
+    // update use-case
+    const { _id, __v, ...updates } = req.body;
+    const filter = { _id: req.body._id };
+    Department.updateOne(filter, updates).then(({ ok }) => {
+      if (ok) {
+        Department.findById(req.body._id).then(item => res.json(item));
+      } else {
+        // TODO: error processing
+      }
+    });
+  } else {
+    // create use-case
+    const department = new Department({
+      name: req.body.name
+    });
 
-  newDepartment.save().then(item => res.json(item));
+    department.save().then(item => res.json(item));
+  }
 });
 
 // @route   DELETE api/departments/:id

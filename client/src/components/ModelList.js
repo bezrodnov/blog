@@ -16,7 +16,9 @@ class ModelList extends Component {
       modelName,
       settings,
       createAction,
-      updateAction
+      updateAction,
+      fields,
+      childModels
     } = this.props;
     const { labels } = settings;
     const { items } = model;
@@ -33,6 +35,8 @@ class ModelList extends Component {
             requestHide={this.hideModal}
             createAction={createAction}
             updateAction={updateAction}
+            fields={fields}
+            childModels={childModels}
           />
           <ListGroup>
             <div className={`model-list-group ${modelName}-model-list-group`}>

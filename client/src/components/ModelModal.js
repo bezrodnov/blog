@@ -29,7 +29,7 @@ export default class ModelModal extends Component {
   }
 
   render() {
-    const { modelName, labels } = this.props;
+    const { modelName, labels, fields, childModels } = this.props;
     const { title, name, show } = this.state;
     return (
       <Modal isOpen={show} keyboard={true} toggle={this.hide}>
@@ -62,7 +62,7 @@ export default class ModelModal extends Component {
     const values = { name };
 
     if (this.props.model && this.props.model._id) {
-      this.props.updateAction(this.props.model._id, values);
+      this.props.updateAction({ ...this.props.model, ...values });
     } else {
       this.props.createAction(values);
     }

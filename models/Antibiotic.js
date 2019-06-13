@@ -8,7 +8,7 @@ const AntibioticSchema = new Schema({
   name: {
     type: String,
     required: true,
-    index: true
+    unique: true
   },
   type: AntibioticType.prototype.schema
 });
