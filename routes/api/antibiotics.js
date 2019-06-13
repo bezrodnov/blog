@@ -9,7 +9,9 @@ const AntibioticType = require("../../models/AntibioticType");
 // @desc    Get All Antibiotics
 // @access  Public
 router.get("/", (req, res) => {
-  Antibiotic.find().then(items => res.json(items));
+  Antibiotic.find().then(items =>
+    res.json(items.sort((a, b) => a.name.localeCompare(b.name)))
+  );
 });
 
 // @route   POST api/antibiotics
