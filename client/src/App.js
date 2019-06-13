@@ -16,14 +16,16 @@ export default class App extends Component {
     return (
       <ModelStoreProvider modelSchemaURL="/api/model/schema">
         <div id="bg-img" className="adb-app">
-          <ModelStoreContext.Consumer>
-            {({ store, routes, models }) => (
-              <TransitionGroup component={null}>
-                {this.renderLoadingMask(store, models)}
-                {this.renderContent(store, routes)}
-              </TransitionGroup>
-            )}
-          </ModelStoreContext.Consumer>
+          <Router>
+            <ModelStoreContext.Consumer>
+              {({ store, routes, models }) => (
+                <TransitionGroup component={null}>
+                  {this.renderLoadingMask(store, models)}
+                  {this.renderContent(store, routes)}
+                </TransitionGroup>
+              )}
+            </ModelStoreContext.Consumer>
+          </Router>
         </div>
       </ModelStoreProvider>
     );
@@ -31,13 +33,21 @@ export default class App extends Component {
 
   renderLoadingMask(store, models = []) {
     if (store) {
-      const mapStateToProps = state => ({
-        show: models.some(({ modelName }) => state[modelName].loading === true)
-      });
-      const ConnectedMask = connect(mapStateToProps)(LoadingMask);
       return (
         <Provider store={store} key="connected-loading-mask">
-          <ConnectedMask />
+          <Route
+            children={({ location }) => {
+              const mapStateToProps = state => ({
+                show: models.some(
+                  ({ modelName }) =>
+                    state[modelName].loading === true &&
+                    `/${modelName}s` === location.pathname
+                )
+              });
+              const ConnectedMask = connect(mapStateToProps)(LoadingMask);
+              return <ConnectedMask />;
+            }}
+          />
         </Provider>
       );
     }
@@ -50,31 +60,24 @@ export default class App extends Component {
     }
     return (
       <Provider store={store}>
-        <Router>
-          <Route
-            children={({ location }) => [
-              <AppNavBar key="navbar" path={location.pathname} />,
-              <TransitionGroup key="pages" className="pages">
-                <CSSTransition
-                  key={location.pathname}
-                  classNames="fade"
-                  timeout={500}
-                >
-                  <Switch location={location}>
-                    {routes.map(({ path, component }) => (
-                      <Route
-                        key={path}
-                        exact
-                        path={path}
-                        component={component}
-                      />
-                    ))}
-                  </Switch>
-                </CSSTransition>
-              </TransitionGroup>
-            ]}
-          />
-        </Router>
+        <Route
+          children={({ location }) => [
+            <AppNavBar key="navbar" path={location.pathname} />,
+            <TransitionGroup key="pages" className="pages">
+              <CSSTransition
+                key={location.pathname}
+                classNames="fade"
+                timeout={500}
+              >
+                <Switch location={location}>
+                  {routes.map(({ path, component }) => (
+                    <Route key={path} exact path={path} component={component} />
+                  ))}
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          ]}
+        />
       </Provider>
     );
   }
