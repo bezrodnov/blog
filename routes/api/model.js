@@ -5,8 +5,18 @@ const router = express.Router();
 const AntibioticType = require("../../models/AntibioticType");
 const Antibiotic = require("../../models/Antibiotic");
 const Department = require("../../models/Department");
+const Diagnosis = require("../../models/Diagnosis");
+const Microorganism = require("../../models/Microorganism");
+const Material = require("../../models/Material");
 
-const models = [AntibioticType, Antibiotic, Department];
+const models = [
+  AntibioticType,
+  Antibiotic,
+  Microorganism,
+  Material,
+  Diagnosis,
+  Department
+];
 
 router.get("/schema", (req, res) => {
   // build all models schema for use in UI

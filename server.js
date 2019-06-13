@@ -3,9 +3,13 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 
+// routess
 const antibiotics = require("./routes/api/antibiotics");
 const antibioticTypes = require("./routes/api/antibioticTypes");
 const departments = require("./routes/api/departments");
+const microorganisms = require("./routes/api/microorganisms");
+const materials = require("./routes/api/materials");
+const diagnosiss = require("./routes/api/diagnosiss");
 const model = require("./routes/api/model");
 
 const app = express();
@@ -26,6 +30,9 @@ mongoose
 app.use("/api/antibiotics", antibiotics);
 app.use("/api/antibioticTypes", antibioticTypes);
 app.use("/api/departments", departments);
+app.use("/api/diagnosiss", diagnosiss);
+app.use("/api/microorganisms", microorganisms);
+app.use("/api/materials", materials);
 app.use("/api/model", model);
 
 // Serve static assets if in production

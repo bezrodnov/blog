@@ -11,6 +11,9 @@ export default {
   "nav.antibiotics": "Антибиотики",
   "nav.antibioticTypes": "Типы Антибиотиков",
   "nav.departments": "Отделения",
+  "nav.diagnosiss": "Диагнозы",
+  "nav.materials": "Материалы",
+  "nav.microorganisms": "Микроорганизмы",
 
   "settingsModal.title": "Настройки",
   "settingsModal.locale": "Язык",
@@ -24,6 +27,15 @@ export default {
   "department.createModal.title": "Добавить Отделение",
   "department.updateModal.title": "Обновить Отделение",
 
+  "diagnosis.createModal.title": "Добавить Диагноз",
+  "diagnosis.updateModal.title": "Обновить Диагноз",
+
+  "material.createModal.title": "Добавить материал",
+  "material.updateModal.title": "Обновить материал",
+
+  "microorganism.createModal.title": "Добавить Микроорганизм",
+  "microorganism.updateModal.title": "Обновить Микроорганизм",
+
   "antibiotic.name": "Название",
   "antibiotic.name.placeholder": "Название Антибиотика",
   "antibiotic.type": "Тип",
@@ -33,5 +45,14 @@ export default {
   "antibioticType.name.placeholder": "Тип Антибиотика",
 
   "department.name": "Наименование",
-  "department.name.placeholder": "Наименование Отделения"
+  "department.name.placeholder": "Наименование Отделения",
+
+  "diagnosis.name": "Название",
+  "diagnosis.name.placeholder": "Название Диагноза",
+
+  "material.name": "Название",
+  "material.name.placeholder": "Название Материала",
+
+  "microorganism.name": "Название",
+  "microorganism.name.placeholder": "Название Микроорганизма"
 };
