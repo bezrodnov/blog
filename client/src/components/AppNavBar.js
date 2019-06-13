@@ -22,6 +22,7 @@ class AppNavBar extends Component {
   render() {
     const { showSettings, isOpen } = this.state;
     const { labels } = this.props.settings;
+    const { path } = this.props;
 
     const toggleSettings = this.toggle.bind(this, "showSettings");
     const toggleNavbar = this.toggle.bind(this, "isOpen");
@@ -35,7 +36,10 @@ class AppNavBar extends Component {
                 {({ models }) =>
                   models.map(({ modelName }) => (
                     <NavItem key={modelName}>
-                      <Link to={`/${modelName}s`}>
+                      <Link
+                        to={getPath(modelName)}
+                        className={path === getPath(modelName) ? "current" : ""}
+                      >
                         {labels[`nav.${modelName}s`]}
                       </Link>
                     </NavItem>
@@ -64,3 +68,5 @@ class AppNavBar extends Component {
 
 const mapStateToProps = ({ settings }) => ({ settings });
 export default connect(mapStateToProps)(AppNavBar);
+
+const getPath = modelName => `/${modelName}s`;

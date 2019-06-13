@@ -1,5 +1,88 @@
+body .loading-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; }
+  body .loading-mask::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #444;
+    opacity: 0.5; }
+  body .loading-mask > div {
+    transform-origin: center;
+    animation: loading-mask 3s infinite linear; }
+    body .loading-mask > div > div {
+      position: absolute;
+      top: calc(50%);
+      left: calc(50%);
+      animation: loading-mask-parts 1.5s infinite linear;
+      animation-fill-mode: forwards;
+      transform-origin: center;
+      width: 25px;
+      height: 25px; }
+      body .loading-mask > div > div::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        top: -50%;
+        left: -50%;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; }
+      body .loading-mask > div > div:nth-child(1) {
+        transform: translate(-20px, -11.54px); }
+        body .loading-mask > div > div:nth-child(1)::after {
+          background: #ce3333; }
+      body .loading-mask > div > div:nth-child(2) {
+        transform: translate(0px, 23.08px);
+        animation-delay: 0.5s; }
+        body .loading-mask > div > div:nth-child(2)::after {
+          background: #33ce33; }
+      body .loading-mask > div > div:nth-child(3) {
+        transform: translate(20px, -11.54px);
+        animation-delay: 1s; }
+        body .loading-mask > div > div:nth-child(3)::after {
+          background: #3333ce; }
+
+@keyframes loading-mask {
+  from {
+    transform: rotate(0deg); }
+  to {
+    transform: rotate(360deg); } }
+
+@keyframes loading-mask-parts {
+  0% {
+    width: 25px;
+    height: 25px;
+    opacity: 1; }
+  50% {
+    width: 12px;
+    height: 12px;
+    opacity: 0.5; } }
+
 * {
   box-sizing: border-box; }
+
+body .fade-enter {
+  opacity: 0.01; }
+
+body .fade-enter-active {
+  opacity: 1;
+  transition: all 0.5s ease-in; }
+
+body .fade-exit {
+  opacity: 1; }
+
+body .fade-exit-active {
+  opacity: 0.01;
+  transition: all 0.5s ease-in; }
 
 html,
 body,
@@ -21,68 +104,6 @@ body,
   background: url("../img/background.jpg");
   background-size: cover; }
 
-.adb-app .loading-mask {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 1000; }
-  .adb-app .loading-mask::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #444;
-    opacity: 0.5; }
-  .adb-app .loading-mask div {
-    position: absolute;
-    top: calc(50% - 12px);
-    left: calc(50% - 12px);
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    transition: all 0.5s ease-in;
-    opacity: 0;
-    animation: loading-mask 3s infinite, loading-mask-appear 1s 1;
-    animation-fill-mode: forwards; }
-    .adb-app .loading-mask div:nth-child(1) {
-      background: #ce3333; }
-    .adb-app .loading-mask div:nth-child(2) {
-      background: #33ce33;
-      animation-delay: 1s; }
-    .adb-app .loading-mask div:nth-child(3) {
-      background: #3333ce;
-      animation-delay: 2s; }
-
-@keyframes loading-mask-appear {
-  from {
-    opacity: 0; }
-  to {
-    opacity: 1; } }
-
-@keyframes loading-mask {
-  0% {
-    margin-left: 0px;
-    margin-top: 0px;
-    width: 25px;
-    height: 25px; }
-  25% {
-    margin-left: 50px;
-    margin-top: -50px;
-    width: 15px;
-    height: 15px; }
-  50% {
-    margin-left: 100px;
-    margin-top: 0px;
-    width: 25px;
-    height: 25px; }
-  75% {
-    margin-left: 50px;
-    margin-top: 50px;
-    width: 15px;
-    height: 15px; } }
-
 .adb-app nav.navbar {
   background-color: #444 !important; }
   .adb-app nav.navbar .nav-item {
@@ -90,8 +111,8 @@ body,
     .adb-app nav.navbar .nav-item a {
       text-decoration: none;
       color: #fff;
-      transition: all 0.5s ease-in; }
-      .adb-app nav.navbar .nav-item a:hover {
+      transition: all 0.5s ease-out; }
+      .adb-app nav.navbar .nav-item a:hover, .adb-app nav.navbar .nav-item a.current {
         color: #eece1a; }
   .adb-app nav.navbar .global-controls {
     flex: 1;
@@ -137,20 +158,6 @@ body,
   transition: all 0.5s ease-in; }
   .adb-app .remove-btn:hover {
     color: #eece1a; }
-
-.adb-app .fade-enter {
-  opacity: 0.01; }
-
-.adb-app .fade-enter-active {
-  opacity: 1;
-  transition: all 0.5s ease-in; }
-
-.adb-app .fade-exit {
-  opacity: 1; }
-
-.adb-app .fade-exit-active {
-  opacity: 0.01;
-  transition: all 0.5s ease-in; }
 
 button.close {
   outline: none !important; }

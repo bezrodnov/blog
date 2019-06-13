@@ -11,6 +11,10 @@ $home-image: url("../img/background.jpg");
   transition: all 0.5s ease-in;
 }
 
+@mixin linear {
+  transition: all 0.5s linear;
+}
+
 // Set Text Color
 @function set-text-color($color) {
   @if (lightness($color) > 40) {
@@ -34,6 +38,28 @@ $home-image: url("../img/background.jpg");
         background: $home-image;
         background-size: cover;
       }
+    }
+  }
+}
+
+@mixin fade {
+  .fade {
+    &-enter {
+      opacity: 0.01;
+    }
+
+    &-enter-active {
+      opacity: 1;
+      @include easeIn;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+
+    &-exit-active {
+      opacity: 0.01;
+      @include easeIn;
     }
   }
 }

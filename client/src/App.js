@@ -17,47 +17,61 @@ export default class App extends Component {
       <ModelStoreProvider modelSchemaURL="/api/model/schema">
         <div id="bg-img" className="adb-app">
           <ModelStoreContext.Consumer>
-            {({ store, routes }) => {
-              if (!store) {
-                return <LoadingMask />;
-              }
-              return (
-                <Provider store={store}>
-                  <Router>
-                    <AppNavBar />
-                    <Route
-                      render={({ location }) => (
-                        <TransitionGroup className="pages">
-                          <CSSTransition
-                            key={location.key}
-                            classNames="fade"
-                            timeout={500}
-                          >
-                            <Switch location={location}>
-                              {routes.map(({ path, component }) => (
-                                <Route
-                                  key={path}
-                                  exact
-                                  path={path}
-                                  component={component}
-                                />
-                              ))}
-                            </Switch>
-                          </CSSTransition>
-                        </TransitionGroup>
-                      )}
-                    />
-                  </Router>
-                </Provider>
-              );
-            }}
+            {({ store, routes }) => (
+              <TransitionGroup component={null}>
+                {this.renderLoadingMask(store)}
+                {this.renderApp(store, routes)}
+              </TransitionGroup>
+            )}
           </ModelStoreContext.Consumer>
         </div>
       </ModelStoreProvider>
     );
   }
 
-  renderLoadingMask() {
-    return <div className="loading-mask" />;
+  renderLoadingMask(store) {
+    if (store) {
+      return null;
+    }
+    return (
+      <CSSTransition classNames="fade" timeout={1000}>
+        <LoadingMask key="loading-mask" />
+      </CSSTransition>
+    );
+  }
+
+  renderApp(store, routes) {
+    if (!store) {
+      return null;
+    }
+    return (
+      <Provider store={store}>
+        <Router>
+          <Route
+            children={({ location }) => [
+              <AppNavBar key="navbar" path={location.pathname} />,
+              <TransitionGroup key="pages" className="pages">
+                <CSSTransition
+                  key={location.key}
+                  classNames="fade"
+                  timeout={500}
+                >
+                  <Switch location={location}>
+                    {routes.map(({ path, component }) => (
+                      <Route
+                        key={path}
+                        exact
+                        path={path}
+                        component={component}
+                      />
+                    ))}
+                  </Switch>
+                </CSSTransition>
+              </TransitionGroup>
+            ]}
+          />
+        </Router>
+      </Provider>
+    );
   }
 }

@@ -1,0 +1,92 @@
+body .loading-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  // transparent overlay
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: $primary-color;
+    opacity: 0.5;
+  }
+
+  & > div {
+    transform-origin: center;
+    animation: loading-mask 3s infinite linear;
+
+    & > div {
+      position: absolute;
+      top: calc(50%);
+      left: calc(50%);
+      animation: loading-mask-parts 1.5s infinite linear;
+      animation-fill-mode: forwards;
+      transform-origin: center;
+      width: 25px;
+      height: 25px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        background: inherit;
+        top: -50%;
+        left: -50%;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+
+      &:nth-child(1) {
+        transform: translate(-20px, -11.54px);
+        &::after {
+          background: #ce3333;
+        }
+      }
+      &:nth-child(2) {
+        transform: translate(0px, 23.08px);
+        animation-delay: 0.5s;
+        &::after {
+          background: #33ce33;
+        }
+      }
+      &:nth-child(3) {
+        transform: translate(20px, -11.54px);
+        animation-delay: 1s;
+        &::after {
+          background: #3333ce;
+        }
+      }
+    }
+  }
+}
+
+@keyframes loading-mask {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-mask-parts {
+  0% {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+  }
+
+  50% {
+    width: 12px;
+    height: 12px;
+    opacity: 0.5;
+  }
+}
