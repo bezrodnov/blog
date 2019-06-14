@@ -15,7 +15,8 @@ export default class App extends Component {
   render() {
     return (
       <ModelStoreProvider modelSchemaURL="/api/model/schema">
-        <div id="bg-img" className="adb-app">
+        <div className="adb-app">
+          <div id="bg-img" />
           <Router>
             <ModelStoreContext.Consumer>
               {({ store, routes, models }) => (

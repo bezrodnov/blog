@@ -6,10 +6,12 @@ export default class Tooltip extends Component {
   state = { isOpen: false };
 
   render() {
-    const { tooltip, children, ...other } = this.props;
+    const { tooltip, children, className, style, ...other } = this.props;
     return (
       <React.Fragment>
-        <span ref={this.onChildRef}>{children}</span>
+        <span ref={this.onChildRef} className={className} style={style}>
+          {children}
+        </span>
         {this.state.target ? (
           <BootstrapTooltip
             {...other}

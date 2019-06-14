@@ -10,6 +10,18 @@ import {
   Label,
   Input
 } from "reactstrap";
+import DayPickerInput from "react-day-picker/DayPickerInput";
+
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate
+} from "react-day-picker/moment";
+
+import Tooltip from "./Tooltip";
+
+import "moment/locale/en-gb";
+import "moment/locale/ru";
+import "react-day-picker/lib/style.css";
 
 export default class ModelModal extends Component {
   state = {};
@@ -55,7 +67,7 @@ export default class ModelModal extends Component {
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
               {fields.map(this.renderField)}
-              <Button color="dark" style={{ marginTop: "2rem" }} block>
+              <Button color="dark" block>
                 {labels["global.save"]}
               </Button>
             </FormGroup>
@@ -66,7 +78,7 @@ export default class ModelModal extends Component {
   }
 
   renderField = ({ name, type, ref, required }, index) => {
-    const { modelName, childModels, labels } = this.props;
+    const { modelName, childModels, labels, locale } = this.props;
     const { values = {} } = this.state;
 
     const fieldProps = {
@@ -107,14 +119,32 @@ export default class ModelModal extends Component {
         );
         break;
       case "Date":
-        return null;
+        field = (
+          <DayPickerInput
+            {...fieldProps}
+            formatDate={formatDate}
+            parseDate={parseDate}
+            format="DD-MM-YYYY"
+            placeholder={formatDate(new Date(), "DD-MM-YYYY", locale)}
+            dayPickerProps={{
+              locale,
+              localeUtils: MomentLocaleUtils
+            }}
+            inputProps={{ className: "form-control" }}
+          />
+        );
+        break;
       default:
         return null;
     }
     return (
       <React.Fragment key={name}>
         <Label for={name}>{labels[`${modelName}.${name}`]}</Label>
-        <span className={required && "required"} />
+        <Tooltip
+          tooltip={labels["field.requiredIndicator"]}
+          className="required-indicator"
+          style={{ display: required ? "" : "none" }}
+        />
         {field}
       </React.Fragment>
     );

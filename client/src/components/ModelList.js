@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { Scrollbars } from "react-custom-scrollbars";
 
 import ModelModal from "./ModelModal";
 
@@ -20,52 +21,57 @@ class ModelList extends Component {
       fields,
       childModels
     } = this.props;
-    const { labels } = settings;
+    const { labels, locale } = settings;
     const { items } = model;
 
     const { showModal, selected } = this.state;
     return (
       <div className="page">
-        <Container>
-          <ModelModal
-            modelName={modelName}
-            model={selected}
-            labels={labels}
-            show={showModal}
-            requestHide={this.hideModal}
-            createAction={createAction}
-            updateAction={updateAction}
-            fields={fields}
-            childModels={childModels}
-          />
-          <ListGroup>
-            <div className={`model-list-group ${modelName}-model-list-group`}>
-              <TransitionGroup className="model-list">
-                {items.map(item => {
-                  const { _id, name } = item;
-                  return (
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem onClick={this.showModal.bind(this, item)}>
-                        <Button
-                          className="remove-btn"
-                          color="danger"
-                          size="sm"
-                          onClick={e => this.onDeleteClick(e, _id)}
+        <Scrollbars>
+          <Container>
+            <ModelModal
+              modelName={modelName}
+              model={selected}
+              labels={labels}
+              locale={locale}
+              show={showModal}
+              requestHide={this.hideModal}
+              createAction={createAction}
+              updateAction={updateAction}
+              fields={fields}
+              childModels={childModels}
+            />
+            <ListGroup>
+              <div className={`model-list-group ${modelName}-model-list-group`}>
+                <TransitionGroup className="model-list">
+                  {items.map(item => {
+                    const { _id, name } = item;
+                    return (
+                      <CSSTransition key={_id} timeout={500} classNames="fade">
+                        <ListGroupItem
+                          onClick={this.showModal.bind(this, item)}
                         >
-                          <span className="fas fa-times" />
-                        </Button>
-                        {name}
-                      </ListGroupItem>
-                    </CSSTransition>
-                  );
-                })}
-              </TransitionGroup>
-            </div>
-            <Button block onClick={this.showModal.bind(this, null)}>
-              {labels["global.add"]}
-            </Button>
-          </ListGroup>
-        </Container>
+                          <Button
+                            className="remove-btn"
+                            color="danger"
+                            size="sm"
+                            onClick={e => this.onDeleteClick(e, _id)}
+                          >
+                            <span className="fas fa-times" />
+                          </Button>
+                          {name}
+                        </ListGroupItem>
+                      </CSSTransition>
+                    );
+                  })}
+                </TransitionGroup>
+              </div>
+              <Button block onClick={this.showModal.bind(this, null)}>
+                {labels["global.add"]}
+              </Button>
+            </ListGroup>
+          </Container>
+        </Scrollbars>
       </div>
     );
   }

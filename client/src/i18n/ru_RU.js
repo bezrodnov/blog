@@ -4,6 +4,7 @@ export default {
   "global.add": "Добавить",
   "global.save": "Сохранить",
   "global.close": "Закрыть",
+  "field.requiredIndicator": "Обязательное поле",
 
   "locale.en_EN": "English",
   "locale.ru_RU": "Русский",
@@ -62,5 +63,6 @@ export default {
 
   "patientCard.firstName": "Имя",
   "patientCard.lastName": "Фамилия",
-  "patientCard.patronymic": "Отчество"
+  "patientCard.patronymic": "Отчество",
+  "patientCard.birthDate": "Дата Рождения"
 };
