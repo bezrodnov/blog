@@ -14,6 +14,7 @@ export default {
   "nav.diagnosiss": "Diagnoses",
   "nav.materials": "Materials",
   "nav.microorganisms": "Microorganisms",
+  "nav.patientCards": "Patient Cards",
 
   "settingsModal.title": "Settings",
   "settingsModal.locale": "Language",
@@ -35,6 +36,9 @@ export default {
 
   "microorganism.createModal.title": "Add Microorganism",
   "microorganism.updateModal.title": "Update Microorganism",
+
+  "patientCard.createModal.title": "Add Patient Card",
+  "patientCard.updateModal.title": "Update Patient Card",
 
   "antibiotic.name": "Name",
   "antibiotic.name.placeholder": "Antibiotic Name",

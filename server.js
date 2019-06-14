@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 
 // routess
+const patientCards = require("./routes/api/patientCards");
 const antibiotics = require("./routes/api/antibiotics");
 const antibioticTypes = require("./routes/api/antibioticTypes");
 const departments = require("./routes/api/departments");
@@ -27,6 +28,7 @@ mongoose
   .catch(console.log);
 
 // Use Routes
+app.use("/api/patientCards", patientCards);
 app.use("/api/antibiotics", antibiotics);
 app.use("/api/antibioticTypes", antibioticTypes);
 app.use("/api/departments", departments);

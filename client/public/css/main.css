@@ -67,6 +67,62 @@ body .loading-mask {
     height: 12px;
     opacity: 0.5; } }
 
+.adb-app nav.navbar {
+  background-color: #444 !important; }
+  .adb-app nav.navbar .navbar-nav {
+    flex-direction: row; }
+  .adb-app nav.navbar .nav-item a {
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.5s ease-out; }
+    .adb-app nav.navbar .nav-item a:hover, .adb-app nav.navbar .nav-item a.current {
+      color: #eece1a; }
+    .adb-app nav.navbar .nav-item a::after {
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 600; }
+    .adb-app nav.navbar .nav-item a.patientCard::after {
+      content: "\f2c2"; }
+    .adb-app nav.navbar .nav-item a.antibiotic::after {
+      content: "\f46b"; }
+    .adb-app nav.navbar .nav-item a.antibioticType::after {
+      content: "\f7e6"; }
+    .adb-app nav.navbar .nav-item a.department::after {
+      content: "\f1ad"; }
+    .adb-app nav.navbar .nav-item a.material::after {
+      content: "\f46b"; }
+    .adb-app nav.navbar .nav-item a.microorganism::after {
+      content: "\f780"; }
+    .adb-app nav.navbar .nav-item a.diagnosis::after {
+      content: "\f470"; }
+  .adb-app nav.navbar .global-controls {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    transition: all 0.5s ease-out;
+    color: #fff; }
+    .adb-app nav.navbar .global-controls .global-control {
+      cursor: pointer; }
+      .adb-app nav.navbar .global-controls .global-control:hover {
+        color: #eece1a; }
+
+@media screen and (max-width: 767px) {
+  .adb-app nav.navbar {
+    font-size: 18px; }
+    .adb-app nav.navbar .nav-item,
+    .adb-app nav.navbar .global-control {
+      padding-right: 1rem; }
+  .adb-app .pages > .page {
+    top: 30px; } }
+
+@media screen and (min-width: 768px) {
+  .adb-app nav.navbar {
+    font-size: 24px; }
+  .adb-app .nav-item,
+  .adb-app .global-control {
+    padding-right: 2rem; }
+  .adb-app .pages > .page {
+    top: 50px; } }
+
 * {
   box-sizing: border-box; }
 
@@ -104,41 +160,19 @@ body,
   background: url("../img/background.jpg");
   background-size: cover; }
 
-.adb-app nav.navbar {
-  background-color: #444 !important; }
-  .adb-app nav.navbar .nav-item {
-    padding: 0.5rem; }
-    .adb-app nav.navbar .nav-item a {
-      text-decoration: none;
-      color: #fff;
-      transition: all 0.5s ease-out; }
-      .adb-app nav.navbar .nav-item a:hover, .adb-app nav.navbar .nav-item a.current {
-        color: #eece1a; }
-  .adb-app nav.navbar .global-controls {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 16px;
-    transition: all 0.5s ease-out;
-    color: #fff; }
-    .adb-app nav.navbar .global-controls .global-control {
-      cursor: pointer;
-      padding: 10px; }
-      .adb-app nav.navbar .global-controls .global-control:hover {
-        color: #eece1a; }
-
 .adb-app .pages {
   position: relative;
   height: 100%; }
   .adb-app .pages > .page {
+    transition: all 0.5s ease-in;
     position: absolute;
-    top: 70px;
     left: 0;
     right: 0;
     bottom: 0;
     overflow: auto; }
     .adb-app .pages > .page > .container {
-      padding: 20px; }
+      padding: 20px;
+      transition: all 0.5s ease-in; }
     .adb-app .pages > .page .model-list {
       opacity: 0.9; }
       .adb-app .pages > .page .model-list .list-group-item {
@@ -159,5 +193,5 @@ body,
   .adb-app .remove-btn:hover {
     color: #eece1a; }
 
-button.close {
+.modal button.close {
   outline: none !important; }

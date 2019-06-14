@@ -6,9 +6,7 @@ module.exports = {
 
     // Get all model instances
     router.get("/", (req, res) => {
-      Model.find().then(items =>
-        res.json(items.sort((a, b) => a.name.localeCompare(b.name)))
-      );
+      Model.find().then(items => res.json(items));
     });
 
     // Create/Update model

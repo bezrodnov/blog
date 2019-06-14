@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // All Models
+const PatientCard = require("../../models/PatientCard");
 const AntibioticType = require("../../models/AntibioticType");
 const Antibiotic = require("../../models/Antibiotic");
 const Department = require("../../models/Department");
@@ -10,6 +11,7 @@ const Microorganism = require("../../models/Microorganism");
 const Material = require("../../models/Material");
 
 const models = [
+  PatientCard,
   AntibioticType,
   Antibiotic,
   Microorganism,

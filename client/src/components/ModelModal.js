@@ -43,7 +43,7 @@ export default class ModelModal extends Component {
     const { labels, fields } = this.props;
     const { title, show } = this.state;
     return (
-      <Modal isOpen={show} keyboard={true} toggle={this.hide}>
+      <Modal isOpen={show} keyboard={true} toggle={this.hide} autoFocus={false}>
         <ModalHeader toggle={this.hide}>{title}</ModalHeader>
         <ModalBody>
           <Form onSubmit={this.onSubmit}>
@@ -59,7 +59,7 @@ export default class ModelModal extends Component {
     );
   }
 
-  renderField = ({ name, type, ref }) => {
+  renderField = ({ name, type, ref }, index) => {
     const { modelName, childModels, labels } = this.props;
     const { values = {} } = this.state;
     let field;
@@ -70,6 +70,7 @@ export default class ModelModal extends Component {
             type="text"
             name={name}
             id={name}
+            autoFocus={index === 0}
             placeholder={labels[`${modelName}.${name}.placeholder`]}
             onChange={this.onChange}
             value={values[name]}

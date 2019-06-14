@@ -1,5 +1,7 @@
 @import "config";
 @import "loadingMask";
+@import "nav";
+@import "mobile";
 
 * {
   box-sizing: border-box;
@@ -21,49 +23,14 @@ body,
 .adb-app {
   @include background;
 
-  nav.navbar {
-    background-color: $primary_color !important;
-
-    .nav-item {
-      padding: 0.5rem;
-
-      a {
-        text-decoration: none;
-        color: set-text-color($primary_color);
-        @include easeOut;
-
-        &:hover,
-        &.current {
-          color: $secondary-color;
-        }
-      }
-    }
-
-    .global-controls {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      font-size: 16px;
-      @include easeOut;
-      color: set-text-color($primary-color);
-
-      .global-control {
-        cursor: pointer;
-        padding: 10px;
-        &:hover {
-          color: $secondary-color;
-        }
-      }
-    }
-  }
-
   .pages {
     position: relative;
     height: 100%;
 
     & > .page {
+      @include easeIn;
+
       position: absolute;
-      top: 70px;
       left: 0;
       right: 0;
       bottom: 0;
@@ -71,6 +38,7 @@ body,
 
       & > .container {
         padding: 20px;
+        @include easeIn;
       }
 
       .model-list {
@@ -106,6 +74,6 @@ body,
   }
 }
 
-button.close {
+.modal button.close {
   outline: none !important;
 }
