@@ -106,6 +106,8 @@ export default class ModelModal extends Component {
           </Input>
         );
         break;
+      case "Date":
+        return null;
       default:
         return null;
     }
