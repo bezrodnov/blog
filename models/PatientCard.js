@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const PatientCardSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true
-  }
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  patronymic: { type: String, required: true },
+  birthDate: { type: Date, required: true },
+  gender: { type: Boolean, required: true }
 });
 
 const PatientCard = mongoose.model("patientCard", PatientCardSchema);

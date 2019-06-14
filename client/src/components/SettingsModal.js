@@ -18,7 +18,12 @@ class SettingsModal extends Component {
   render() {
     const { locales, locale, labels } = this.props.settings;
     return (
-      <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
+      <Modal
+        isOpen={this.props.show}
+        keyboard={true}
+        toggle={this.hide}
+        autoFocus={false}
+      >
         <ModalHeader toggle={this.hide}>
           {labels["settingsModal.title"]}
         </ModalHeader>
@@ -30,6 +35,7 @@ class SettingsModal extends Component {
                 type="select"
                 name="locale"
                 id="locale"
+                autoFocus={true}
                 onChange={this.onChange}
                 value={locale}
               >

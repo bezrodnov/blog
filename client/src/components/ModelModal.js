@@ -43,7 +43,13 @@ export default class ModelModal extends Component {
     const { labels, fields } = this.props;
     const { title, show } = this.state;
     return (
-      <Modal isOpen={show} keyboard={true} toggle={this.hide} autoFocus={false}>
+      <Modal
+        className="model-modal"
+        isOpen={show}
+        keyboard={true}
+        toggle={this.hide}
+        autoFocus={false}
+      >
         <ModalHeader toggle={this.hide}>{title}</ModalHeader>
         <ModalBody>
           <Form onSubmit={this.onSubmit}>
@@ -59,21 +65,27 @@ export default class ModelModal extends Component {
     );
   }
 
-  renderField = ({ name, type, ref }, index) => {
+  renderField = ({ name, type, ref, required }, index) => {
     const { modelName, childModels, labels } = this.props;
     const { values = {} } = this.state;
+
+    const fieldProps = {
+      name,
+      id: name,
+      value: values[name],
+      autoFocus: index === 0,
+      autoComplete: "off"
+    };
+
     let field;
     switch (type) {
       case "String":
         field = (
           <Input
             type="text"
-            name={name}
-            id={name}
-            autoFocus={index === 0}
             placeholder={labels[`${modelName}.${name}.placeholder`]}
             onChange={this.onChange}
-            value={values[name]}
+            {...fieldProps}
           />
         );
         break;
@@ -84,13 +96,7 @@ export default class ModelModal extends Component {
           return null;
         }
         field = (
-          <Input
-            type="select"
-            name={name}
-            id={name}
-            onChange={this.onChange}
-            value={values[name]}
-          >
+          <Input type="select" onChange={this.onChange} {...fieldProps}>
             <option key="empty" value="" />
             {childModel.items.map(({ _id, name }) => (
               <option key={_id} value={_id}>
@@ -106,6 +112,7 @@ export default class ModelModal extends Component {
     return (
       <React.Fragment key={name}>
         <Label for={name}>{labels[`${modelName}.${name}`]}</Label>
+        <span className={required && "required"} />
         {field}
       </React.Fragment>
     );

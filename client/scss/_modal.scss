@@ -1,0 +1,17 @@
+.modal-dialog.model-modal {
+  .modal-body {
+    span.required::after {
+      content: "\f069";
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 600;
+      font-size: 8px;
+      color: red;
+      vertical-align: super;
+      padding-left: 3px;
+    }
+
+    label {
+      padding-top: 5px;
+    }
+  }
+}

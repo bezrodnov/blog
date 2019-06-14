@@ -31,7 +31,7 @@ router.get("/schema", (req, res) => {
       }
 
       const path = model.prototype.schema.paths[name];
-      const field = { name, type: path.instance };
+      const field = { name, type: path.instance, required: path.isRequired };
       fields.push(field);
 
       if (path.instance === "Embedded") {

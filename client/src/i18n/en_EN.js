@@ -58,5 +58,9 @@ export default {
   "material.name.placeholder": "Material Name",
 
   "microorganism.name": "Name",
-  "microorganism.name.placeholder": "Microorganism Name"
+  "microorganism.name.placeholder": "Microorganism Name",
+
+  "patientCard.firstName": "First Name",
+  "patientCard.lastName": "Last Name",
+  "patientCard.patronymic": "Patronymic"
 };

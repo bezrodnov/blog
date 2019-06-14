@@ -10,7 +10,10 @@ const AntibioticSchema = new Schema({
     required: true,
     unique: true
   },
-  type: AntibioticType.prototype.schema
+  type: {
+    type: AntibioticType.prototype.schema,
+    required: true
+  }
 });
 
 const Antibiotic = mongoose.model("antibiotic", AntibioticSchema);
