@@ -20,15 +20,31 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   if (req.body._id) {
     // update use-case
-    // TODO: find referenced antibiotic type and embed
-    const { _id, __v, ...updates } = req.body;
-    const filter = { _id: req.body._id };
-    Antibiotic.updateOne(filter, updates).then(({ ok }) => {
-      if (ok) {
-        Antibiotic.findById(req.body._id).then(item => res.json(item));
+    const { _id, __v, type, ...updates } = req.body;
+    // find referenced antibiotic type and embed (if any)
+    new Promise(resolve => {
+      if (type) {
+        AntibioticType.findById(type)
+          .then(resolve)
+          .catch(err => {
+            console.error(err);
+            resolve(null);
+          });
       } else {
-        // TODO: error processing
+        resolve(null);
       }
+    }).then(type => {
+      if (type) {
+        updates.type = type;
+      }
+      const filter = { _id: req.body._id };
+      Antibiotic.updateOne(filter, updates).then(({ ok }) => {
+        if (ok) {
+          Antibiotic.findById(req.body._id).then(item => res.json(item));
+        } else {
+          // TODO: error processing
+        }
+      });
     });
   } else {
     // create use-case
