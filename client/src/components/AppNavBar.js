@@ -3,53 +3,56 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavItem, Container } from "reactstrap";
 
-import ModelStoreContext from "../ModelStoreContext";
+import ModelUIContext from "../ModelUIContext";
 import SettingsModal from "./SettingsModal";
 import Tooltip from "./Tooltip";
 
 class AppNavBar extends Component {
   state = { showSettings: false };
+  toggleShowSettings = this.toggle.bind(this, "showSettings");
 
   render() {
     const { showSettings } = this.state;
     const { labels } = this.props.settings;
     const { path } = this.props;
 
-    const toggleSettings = this.toggle.bind(this, "showSettings");
     return (
       <Navbar color="dark" dark expand="sm" className="mb-5 fixed-top">
         <Container>
           <Nav navbar>
-            <ModelStoreContext.Consumer>
+            <ModelUIContext.Consumer>
               {({ models }) =>
-                models.map(({ modelName }) => (
+                models.map(({ name }) => (
                   <Tooltip
-                    key={modelName}
-                    tooltip={labels[`nav.${modelName}s`]}
+                    key={name}
+                    tooltip={labels[`nav.${name}s`]}
                     placement="bottom"
                   >
                     <NavItem>
                       <Link
-                        to={getPath(modelName)}
-                        className={`${modelName} ${
-                          path === getPath(modelName) ? "current" : ""
+                        to={getPath(name)}
+                        className={`${name} ${
+                          path === getPath(name) ? "current" : ""
                         }`}
                       />
                     </NavItem>
                   </Tooltip>
                 ))
               }
-            </ModelStoreContext.Consumer>
+            </ModelUIContext.Consumer>
           </Nav>
           <div className="global-controls">
             <span
               className="global-control fas fa-cog"
-              onClick={toggleSettings}
+              onClick={this.toggleShowSettings}
             />
             <span className="global-control fas fa-sign-out-alt" />
           </div>
         </Container>
-        <SettingsModal show={showSettings} requestHide={toggleSettings} />
+        <SettingsModal
+          show={showSettings}
+          requestHide={this.toggleShowSettings}
+        />
       </Navbar>
     );
   }

@@ -29,18 +29,6 @@ class ModelList extends Component {
       <div className="page">
         <Scrollbars>
           <Container>
-            <ModelModal
-              modelName={modelName}
-              model={selected}
-              labels={labels}
-              locale={locale}
-              show={showModal}
-              requestHide={this.hideModal}
-              createAction={createAction}
-              updateAction={updateAction}
-              fields={fields}
-              childModels={childModels}
-            />
             <ListGroup>
               <div className={`model-list-group ${modelName}-model-list-group`}>
                 <TransitionGroup className="model-list">
@@ -72,6 +60,18 @@ class ModelList extends Component {
             </ListGroup>
           </Container>
         </Scrollbars>
+        <ModelModal
+          modelName={modelName}
+          model={selected}
+          labels={labels}
+          locale={locale}
+          show={showModal}
+          requestHide={this.hideModal}
+          createAction={createAction}
+          updateAction={updateAction}
+          fields={fields}
+          childModels={childModels}
+        />
       </div>
     );
   }

@@ -5,8 +5,8 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import ModelStoreContext from "./ModelStoreContext";
-import ModelStoreProvider from "./ModelStoreProvider";
+import ModelUIContext from "./ModelUIContext";
+import ModelUIContextProvider from "./ModelUIContextProvider";
 
 import AppNavBar from "./components/AppNavBar";
 import LoadingMask from "./components/LoadingMask";
@@ -14,21 +14,21 @@ import LoadingMask from "./components/LoadingMask";
 export default class App extends Component {
   render() {
     return (
-      <ModelStoreProvider modelSchemaURL="/api/model/schema">
+      <ModelUIContextProvider modelSchemaURL="/api/model/schema">
         <div className="adb-app">
           <div id="bg-img" />
           <Router>
-            <ModelStoreContext.Consumer>
+            <ModelUIContext.Consumer>
               {({ store, routes, models }) => (
                 <TransitionGroup component={null}>
                   {this.renderLoadingMask(store, models)}
                   {this.renderContent(store, routes)}
                 </TransitionGroup>
               )}
-            </ModelStoreContext.Consumer>
+            </ModelUIContext.Consumer>
           </Router>
         </div>
-      </ModelStoreProvider>
+      </ModelUIContextProvider>
     );
   }
 
@@ -40,9 +40,9 @@ export default class App extends Component {
             children={({ location }) => {
               const mapStateToProps = state => ({
                 show: models.some(
-                  ({ modelName }) =>
-                    state[modelName].loading === true &&
-                    `/${modelName}s` === location.pathname
+                  ({ name }) =>
+                    state[name].loading === true &&
+                    `/${name}s` === location.pathname
                 )
               });
               const ConnectedMask = connect(mapStateToProps)(LoadingMask);

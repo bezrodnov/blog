@@ -18,7 +18,9 @@ module.exports = {
         // update by id
         Model.updateOne({ _id }, values).then(({ ok }) => {
           if (ok) {
-            Model.findById(_id).then(item => res.json(item));
+            Model.findById(_id).then(item =>
+              res.json(item.toJSON({ virtuals: true }))
+            );
           } else {
             // TODO: error processing
             res.json({ success: false });
@@ -28,7 +30,7 @@ module.exports = {
         // create use-case
         new Model(values)
           .save()
-          .then(model => res.json(model))
+          .then(model => res.json(model.toJSON({ virtuals: true })))
           .catch(err => res.json({ success: false, err }));
       }
     });

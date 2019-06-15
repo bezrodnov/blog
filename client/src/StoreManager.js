@@ -1,87 +1,39 @@
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import axios from "axios";
-import { connect } from "react-redux";
-
-import ModelList from "./components/ModelList";
 
 const composeLeft = (...fns) => args => fns.reduce((d, fn) => fn(d), args);
 
 class StoreManager {
   entities = {};
 
-  addEntity({ name, reducer, actionTypes, actions, roles }) {
+  addEntity({ name, reducer, actionTypes, actions }) {
     if (this.entities[name]) {
       console.error(`entity ${name} has aleady been added, ignoring...`);
       return;
     }
     this.store = null;
 
-    this.entities[name] = { reducer, actions, roles, actionTypes };
+    this.entities[name] = { reducer, actions, actionTypes };
   }
 
-  addModel({ name, fields, roles, modelListComponent }) {
-    if (this.entities[name]) {
-      console.error(`entity ${name} has aleady been added, ignoring...`);
+  addModel({ modelName, fields, modelListComponent }) {
+    if (this.entities[modelName]) {
+      console.error(`entity ${modelName} has aleady been added, ignoring...`);
       return;
     }
     this.store = null;
 
-    this.entities[name] = composeLeft(
+    this.entities[modelName] = composeLeft(
       generateActionTypes,
       generateActions,
       generateReducer
     )({
       _isModel: true,
-      name,
+      name: modelName,
       fields,
-      roles,
       modelListComponent
     });
-  }
-
-  // TODO: refactor: move somewhere else
-  getRoutes(role) {
-    const generateModelListComponent = model => {
-      const { name, createAction, updateAction, deleteAction, fields } = model;
-
-      const mapChildModels = state =>
-        fields
-          .filter(field => field.type === "Embedded")
-          .reduce((childModels, field) => {
-            const childModel = Object.values(this.entities).find(
-              entity => entity._isModel && entity.name === field.ref
-            );
-            if (childModel) {
-              childModels[childModel.name] = state[childModel.name];
-            }
-            return childModels;
-          }, {});
-
-      const mapStateToProps = state => ({
-        modelName: name,
-        settings: state["settings"],
-        model: state[name],
-        childModels: mapChildModels(state),
-        fields
-      });
-      const mapDispatchToProps = { createAction, updateAction, deleteAction };
-
-      return connect(
-        mapStateToProps,
-        mapDispatchToProps
-      )(model.modelListComponent || ModelList);
-    };
-
-    return Object.values(this.entities)
-      .filter(
-        entity =>
-          entity._isModel && (!entity.roles || entity.roles.indexOf(role) >= 0)
-      )
-      .map(model => ({
-        path: `/${model.name}s`,
-        component: generateModelListComponent(model)
-      }));
   }
 
   getStore() {
@@ -98,22 +50,21 @@ class StoreManager {
 
     this.store = createStore(
       combineReducers(reducers),
-      {}, // initial state
-      // prettier-ignore
-      compose(
-        applyMiddleware(...middleware)
-        //,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-      )
+      {},
+      applyMiddleware(...middleware)
     );
 
     Object.values(this.entities).forEach(entity => {
-      // TODO: add config to skip loading by default for some models
       if (entity.loadAction) {
         this.store.dispatch(entity.loadAction());
       }
     });
 
     return this.store;
+  }
+
+  getModels() {
+    return Object.values(this.entities).filter(entity => entity._isModel);
   }
 }
 
