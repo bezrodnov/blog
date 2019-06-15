@@ -19,6 +19,7 @@ class SettingsModal extends Component {
     const { locales, locale, labels } = this.props.settings;
     return (
       <Modal
+        className="medic-modal"
         isOpen={this.props.show}
         keyboard={true}
         toggle={this.hide}

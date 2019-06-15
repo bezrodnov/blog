@@ -6,7 +6,9 @@ module.exports = {
 
     // Get all model instances
     router.get("/", (req, res) => {
-      Model.find().then(items => res.json(items));
+      Model.find().then(items =>
+        res.json(items.map(item => item.toJSON({ virtuals: true })))
+      );
     });
 
     // Create/Update model

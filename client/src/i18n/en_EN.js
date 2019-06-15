@@ -4,6 +4,8 @@ export default {
   "global.add": "Add",
   "global.save": "Save",
   "global.close": "Close",
+  "gender.male": "Male",
+  "gender.female": "Female",
   "field.requiredIndicator": "This field is required",
 
   "locale.en_EN": "English",
@@ -64,5 +66,6 @@ export default {
   "patientCard.firstName": "First Name",
   "patientCard.lastName": "Last Name",
   "patientCard.patronymic": "Patronymic",
-  "patientCard.birthDate": "Birth Date"
+  "patientCard.birthDate": "Birth Date",
+  "patientCard.gender": "Gender"
 };

@@ -10,5 +10,9 @@ const DiagnosisSchema = new Schema({
   }
 });
 
+DiagnosisSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const Diagnosis = mongoose.model("diagnosis", DiagnosisSchema);
 module.exports = Diagnosis;

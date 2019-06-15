@@ -16,5 +16,9 @@ const AntibioticSchema = new Schema({
   }
 });
 
+AntibioticSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const Antibiotic = mongoose.model("antibiotic", AntibioticSchema);
 module.exports = Antibiotic;

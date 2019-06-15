@@ -10,5 +10,9 @@ const AntibioticTypeSchema = new Schema({
   }
 });
 
+AntibioticTypeSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const AntibioticType = mongoose.model("antibioticType", AntibioticTypeSchema);
 module.exports = AntibioticType;

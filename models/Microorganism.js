@@ -10,5 +10,9 @@ const MicroorganismSchema = new Schema({
   }
 });
 
+MicroorganismSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const Microorganism = mongoose.model("microorganism", MicroorganismSchema);
 module.exports = Microorganism;

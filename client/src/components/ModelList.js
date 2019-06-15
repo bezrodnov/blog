@@ -45,7 +45,7 @@ class ModelList extends Component {
               <div className={`model-list-group ${modelName}-model-list-group`}>
                 <TransitionGroup className="model-list">
                   {items.map(item => {
-                    const { _id, name } = item;
+                    const { _id, displayName } = item;
                     return (
                       <CSSTransition key={_id} timeout={500} classNames="fade">
                         <ListGroupItem
@@ -59,7 +59,7 @@ class ModelList extends Component {
                           >
                             <span className="fas fa-times" />
                           </Button>
-                          {name}
+                          {displayName}
                         </ListGroupItem>
                       </CSSTransition>
                     );

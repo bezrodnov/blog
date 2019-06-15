@@ -56,7 +56,7 @@ export default class ModelModal extends Component {
     const { title, show } = this.state;
     return (
       <Modal
-        className="model-modal"
+        className="medic-modal"
         isOpen={show}
         keyboard={true}
         toggle={this.hide}
@@ -86,53 +86,23 @@ export default class ModelModal extends Component {
       id: name,
       value: values[name],
       autoFocus: index === 0,
-      autoComplete: "off"
+      autoComplete: "off",
+      onChange: this.onChange
     };
 
     let field;
     switch (type) {
       case "String":
-        field = (
-          <Input
-            type="text"
-            placeholder={labels[`${modelName}.${name}.placeholder`]}
-            onChange={this.onChange}
-            {...fieldProps}
-          />
-        );
+        field = renderStringField({ fieldProps, modelName, labels });
         break;
       case "Embedded":
-        const childModel = childModels[ref];
-        if (!childModel || !childModel.items) {
-          console.error(`child model not found for field ${field.name}`);
-          return null;
-        }
-        field = (
-          <Input type="select" onChange={this.onChange} {...fieldProps}>
-            <option key="empty" value="" />
-            {childModel.items.map(({ _id, name }) => (
-              <option key={_id} value={_id}>
-                {name}
-              </option>
-            ))}
-          </Input>
-        );
+        field = renderEmbeddedField({ fieldProps, childModels, ref });
         break;
       case "Date":
-        field = (
-          <DayPickerInput
-            {...fieldProps}
-            formatDate={formatDate}
-            parseDate={parseDate}
-            format="DD-MM-YYYY"
-            placeholder={formatDate(new Date(), "DD-MM-YYYY", locale)}
-            dayPickerProps={{
-              locale,
-              localeUtils: MomentLocaleUtils
-            }}
-            inputProps={{ className: "form-control" }}
-          />
-        );
+        field = renderDateField({ fieldProps, locale });
+        break;
+      case "Boolean":
+        field = renderBooleanField({ fieldProps, labels });
         break;
       default:
         return null;
@@ -183,4 +153,65 @@ ModelModal.propTypes = {
   show: PropTypes.bool,
   labels: PropTypes.object.isRequired,
   requestHide: PropTypes.func.isRequired
+};
+
+const renderStringField = ({ fieldProps, labels, modelName }) => (
+  <Input
+    type="text"
+    placeholder={labels[`${modelName}.${fieldProps.name}.placeholder`]}
+    {...fieldProps}
+  />
+);
+
+const renderEmbeddedField = ({ fieldProps, childModels, ref }) => {
+  const childModel = childModels[ref];
+  if (!childModel || !childModel.items) {
+    console.error(`child model not found for field ${fieldProps.name}`);
+    return null;
+  }
+  return (
+    <Input type="select" {...fieldProps}>
+      <option key="empty" value="" />
+      {childModel.items.map(({ _id, name }) => (
+        <option key={_id} value={_id}>
+          {name}
+        </option>
+      ))}
+    </Input>
+  );
+};
+
+const renderDateField = ({ fieldProps, locale }) => (
+  <DayPickerInput
+    {...fieldProps}
+    formatDate={formatDate}
+    parseDate={parseDate}
+    format="DD-MM-YYYY"
+    placeholder={formatDate(new Date(), "DD-MM-YYYY", locale)}
+    dayPickerProps={{
+      locale,
+      localeUtils: MomentLocaleUtils
+    }}
+    onDayChange={value => {
+      fieldProps.onChange({ target: { value, name: fieldProps.name } });
+    }}
+    inputProps={{ className: "form-control" }}
+  />
+);
+
+const renderBooleanField = ({ fieldProps, labels }) => {
+  // HACK: find a better way to handle such use-cases
+  if (fieldProps.name.toLowerCase() === "gender") {
+    return (
+      <Input type="select" {...fieldProps}>
+        <option key="empty" value="" />
+        {[true, false].map(gender => (
+          <option key={gender} value={gender}>
+            {labels[`gender.${gender ? "male" : "female"}`]}
+          </option>
+        ))}
+      </Input>
+    );
+  }
+  return null;
 };

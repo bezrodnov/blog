@@ -10,7 +10,11 @@ const AntibioticType = require("../../models/AntibioticType");
 // @access  Public
 router.get("/", (req, res) => {
   Antibiotic.find().then(items =>
-    res.json(items.sort((a, b) => a.name.localeCompare(b.name)))
+    res.json(
+      items
+        .map(item => item.toJSON({ virtuals: true }))
+        .sort((a, b) => a.displayName.localeCompare(b.displayName))
+    )
   );
 });
 

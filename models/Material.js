@@ -10,5 +10,9 @@ const MaterialSchema = new Schema({
   }
 });
 
+MaterialSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const Material = mongoose.model("material", MaterialSchema);
 module.exports = Material;

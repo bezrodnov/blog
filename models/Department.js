@@ -10,5 +10,9 @@ const DepartmentSchema = new Schema({
   }
 });
 
+DepartmentSchema.virtual("displayName").get(function() {
+  return this.name;
+});
+
 const Department = mongoose.model("department", DepartmentSchema);
 module.exports = Department;

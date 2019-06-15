@@ -105,9 +105,14 @@ body .loading-mask {
       .adb-app nav.navbar .global-controls .global-control:hover {
         color: #eece1a; }
 
-.modal-dialog.model-modal .modal-body .form-group {
+.modal-dialog.medic-modal h5,
+.modal-dialog.medic-modal label,
+.modal-dialog.medic-modal button > span {
+  user-select: none; }
+
+.modal-dialog.medic-modal .modal-body .form-group {
   margin-bottom: 0; }
-  .modal-dialog.model-modal .modal-body .form-group span.required-indicator::after {
+  .modal-dialog.medic-modal .modal-body .form-group span.required-indicator::after {
     content: "\f069";
     font-family: "Font Awesome 5 Pro";
     font-weight: 600;
@@ -115,13 +120,13 @@ body .loading-mask {
     color: red;
     vertical-align: super;
     padding-left: 3px; }
-  .modal-dialog.model-modal .modal-body .form-group label {
+  .modal-dialog.medic-modal .modal-body .form-group label {
     padding-top: 5px; }
-  .modal-dialog.model-modal .modal-body .form-group .DayPickerInput {
+  .modal-dialog.medic-modal .modal-body .form-group .DayPickerInput {
     width: 100%; }
-    .modal-dialog.model-modal .modal-body .form-group .DayPickerInput input::placeholder {
+    .modal-dialog.medic-modal .modal-body .form-group .DayPickerInput input::placeholder {
       opacity: 0.5; }
-  .modal-dialog.model-modal .modal-body .form-group button.btn {
+  .modal-dialog.medic-modal .modal-body .form-group button.btn {
     margin-top: 2rem; }
 
 @media screen and (max-width: 767px) {

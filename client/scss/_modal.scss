@@ -1,4 +1,10 @@
-.modal-dialog.model-modal {
+.modal-dialog.medic-modal {
+  h5,
+  label,
+  button > span {
+    user-select: none;
+  }
+
   .modal-body {
     .form-group {
       margin-bottom: 0;
