@@ -9,18 +9,26 @@ const compose = (...fns) => args => fns.reduce((d, fn) => fn(d), args);
 
 const loadLocales = () => ({
   locales: Object.keys(LOCALES),
-  locale:
-    (window.localStorage && localStorage.getItem("adbMedic.locale")) ||
-    DEFAULT_LOCALE
+  locale: (window.localStorage && localStorage.getItem("adbMedic.locale")) || DEFAULT_LOCALE
 });
 
 const setLabels = args => ({
   ...args,
-  labels: LOCALES[args.locale] || DEFAULT_LOCALE
+  labels: {
+    get: key => {
+      const labels = LOCALES[args.locale || DEFAULT_LOCALE];
+      const label = labels[key];
+      if (label !== undefined) {
+        return label;
+      }
+      console.warn(`no label found for key: "${key}"`);
+      return key;
+    }
+  }
 });
 
 const setDocumentTitle = args => {
-  document.title = args.labels["adb.title"];
+  document.title = args.labels.get("adb.title");
   return args;
 };
 

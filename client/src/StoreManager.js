@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import axios from "axios";
+import { tokenConfig } from "./actions/authActions";
 
 const composeLeft = (...fns) => args => fns.reduce((d, fn) => fn(d), args);
 
@@ -24,11 +25,7 @@ class StoreManager {
     }
     this.store = null;
 
-    this.entities[modelName] = composeLeft(
-      generateActionTypes,
-      generateActions,
-      generateReducer
-    )({
+    this.entities[modelName] = composeLeft(generateActionTypes, generateActions, generateReducer)({
       _isModel: true,
       name: modelName,
       fields,
@@ -51,14 +48,18 @@ class StoreManager {
     this.store = createStore(
       combineReducers(reducers),
       {},
-      applyMiddleware(...middleware)
+      compose(
+        applyMiddleware(...middleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      )
     );
 
-    Object.values(this.entities).forEach(entity => {
-      if (entity.loadAction) {
-        this.store.dispatch(entity.loadAction());
-      }
-    });
+    // TODO: load all models after successful authentication
+    // Object.values(this.entities).forEach(entity => {
+    //   if (entity.loadAction) {
+    //     this.store.dispatch(entity.loadAction());
+    //   }
+    // });
 
     return this.store;
   }
@@ -80,9 +81,9 @@ const generateActionTypes = cfg => ({
 });
 
 const generateActions = cfg => {
-  const createAction = model => dispatch => {
+  const createAction = model => (dispatch, getState) => {
     axios
-      .post(`/api/${cfg.name}s`, model)
+      .post(`/api/${cfg.name}s`, model, tokenConfig(getState))
       .then(res => {
         dispatch({
           type: cfg.createActionType,
@@ -94,9 +95,9 @@ const generateActions = cfg => {
       });
   };
 
-  const updateAction = model => dispatch => {
+  const updateAction = model => (dispatch, getState) => {
     axios
-      .post(`/api/${cfg.name}s`, model)
+      .post(`/api/${cfg.name}s`, model, tokenConfig(getState))
       .then(res => {
         dispatch({
           type: cfg.updateActionType,
@@ -108,9 +109,9 @@ const generateActions = cfg => {
       });
   };
 
-  const deleteAction = id => dispatch => {
+  const deleteAction = id => (dispatch, getState) => {
     axios
-      .delete(`/api/${cfg.name}s/${id}`)
+      .delete(`/api/${cfg.name}s/${id}`, tokenConfig(getState))
       .then(res => {
         dispatch({
           type: cfg.deleteActionType,
@@ -168,9 +169,7 @@ const generateReducer = cfg => {
         case cfg.updateActionType:
           return {
             ...state,
-            items: state.items.map(m =>
-              m._id === action.payload._id ? action.payload : m
-            )
+            items: state.items.map(m => (m._id === action.payload._id ? action.payload : m))
           };
 
         case cfg.deleteActionType:

@@ -1,4 +1,7 @@
 export default {
+  "locale.en_EN": "English",
+  "locale.ru_RU": "Русский",
+
   "adb.title": "Medic Laboratory",
 
   "global.add": "Add",
@@ -8,14 +11,24 @@ export default {
   "gender.female": "Female",
   "field.requiredIndicator": "This field is required",
 
-  "locale.en_EN": "English",
-  "locale.ru_RU": "Русский",
+  "registerModal.registerButton": "OK",
+  "registerModal.title": "Register",
+  "registerModal.tooltip": "Register",
+
+  "loginModal.loginButton": "OK",
+  "loginModal.title": "Login",
+  "loginModal.tooltip": "Login",
+
+  "nav.login": "Login",
+  "nav.logout": "Logout",
+  "nav.register": "Register",
+  "nav.settings": "Settings",
 
   "nav.antibiotics": "Antibiotics",
   "nav.antibioticTypes": "Antibiotic Types",
   "nav.departments": "Departments",
   "nav.diagnosiss": "Diagnoses",
-  "nav.materials": "Materials",
+  "nav.materials": "Biomaterials",
   "nav.microorganisms": "Microorganisms",
   "nav.patientCards": "Patient Cards",
 
@@ -34,8 +47,8 @@ export default {
   "diagnosis.createModal.title": "Add Diagnosis",
   "diagnosis.updateModal.title": "Update Diagnosis",
 
-  "material.createModal.title": "Add Material",
-  "material.updateModal.title": "Update Material",
+  "material.createModal.title": "Add Biomaterial",
+  "material.updateModal.title": "Update Biomaterial",
 
   "microorganism.createModal.title": "Add Microorganism",
   "microorganism.updateModal.title": "Update Microorganism",
@@ -58,7 +71,7 @@ export default {
   "diagnosis.name.placeholder": "Diagnosis Name",
 
   "material.name": "Name",
-  "material.name.placeholder": "Material Name",
+  "material.name.placeholder": "Biomaterial Name",
 
   "microorganism.name": "Name",
   "microorganism.name.placeholder": "Microorganism Name",
@@ -67,5 +80,9 @@ export default {
   "patientCard.lastName": "Last Name",
   "patientCard.patronymic": "Patronymic",
   "patientCard.birthDate": "Birth Date",
-  "patientCard.gender": "Gender"
+  "patientCard.gender": "Gender",
+
+  "user.name": "Name",
+  "user.email": "Email",
+  "user.password": "Password"
 };

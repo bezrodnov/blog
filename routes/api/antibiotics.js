@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 
 // Antibiotic Model
 const Antibiotic = require("../../models/Antibiotic");
@@ -11,17 +12,15 @@ const AntibioticType = require("../../models/AntibioticType");
 router.get("/", (req, res) => {
   Antibiotic.find().then(items =>
     res.json(
-      items
-        .map(item => item.toJSON({ virtuals: true }))
-        .sort((a, b) => a.displayName.localeCompare(b.displayName))
+      items.map(item => item.toJSON({ virtuals: true })).sort((a, b) => a.displayName.localeCompare(b.displayName))
     )
   );
 });
 
 // @route   POST api/antibiotics
 // @desc    Create/Update Antibiotic
-// @access  Public
-router.post("/", (req, res) => {
+// @access  Private
+router.post("/", auth, (req, res) => {
   if (req.body._id) {
     // update use-case
     const { _id, __v, type, ...updates } = req.body;
@@ -64,12 +63,10 @@ router.post("/", (req, res) => {
 
 // @route   DELETE api/antibiotics/:id
 // @desc    Delete Antibiotic by id
-// @access  Public
-router.delete("/:id", (req, res) => {
+// @access  Private
+router.delete("/:id", auth, (req, res) => {
   Antibiotic.findById(req.params.id)
-    .then(antibiotic =>
-      antibiotic.remove().then(() => res.json({ success: true }))
-    )
+    .then(antibiotic => antibiotic.remove().then(() => res.json({ success: true })))
     .catch(err => res.status(404).json({ success: false }));
 });
 

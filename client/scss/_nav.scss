@@ -39,7 +39,7 @@
         }
 
         &.material::after {
-          content: "\f46b";
+          content: "\f471";
         }
 
         &.microorganism::after {
@@ -48,6 +48,10 @@
 
         &.diagnosis::after {
           content: "\f470";
+        }
+
+        &.analysis::after {
+          content: "\f55c";
         }
       }
     }

@@ -38,21 +38,21 @@ class AntibioticModal extends Component {
     return (
       <Modal isOpen={this.props.show} keyboard={true} toggle={this.hide}>
         <ModalHeader toggle={this.hide}>
-          {labels["antibiotic.addModal.title"]}
+          {labels.get("antibiotic.addModal.title")}
         </ModalHeader>
         <ModalBody>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
-              <Label for="name">{labels["antibiotic.name"]}</Label>
+              <Label for="name">{labels.get("antibiotic.name")}</Label>
               <Input
                 type="text"
                 name="name"
                 id="name"
-                placeholder={labels["antibiotic.addModal.name.placeholder"]}
+                placeholder={labels.get("antibiotic.addModal.name.placeholder")}
                 onChange={this.onChange}
                 value={name}
               />
-              <Label for="type">{labels["antibiotic.type"]}</Label>
+              <Label for="type">{labels.get("antibiotic.type")}</Label>
               <Input
                 type="select"
                 name="type"
@@ -68,7 +68,7 @@ class AntibioticModal extends Component {
                 ))}
               </Input>
               <Button color="dark" style={{ marginTop: "2rem" }} block>
-                {labels["global.save"]}
+                {labels.get("global.save"]}
               </Button>
             </FormGroup>
           </Form>

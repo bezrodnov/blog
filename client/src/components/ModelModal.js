@@ -1,21 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Form,
-  FormGroup,
-  Label,
-  Input
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from "reactstrap";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 
-import MomentLocaleUtils, {
-  formatDate,
-  parseDate
-} from "react-day-picker/moment";
+import MomentLocaleUtils, { formatDate, parseDate } from "react-day-picker/moment";
 
 import Tooltip from "./Tooltip";
 
@@ -35,16 +23,13 @@ export default class ModelModal extends Component {
     }
     const model = props.model || {};
     // prettier-ignore
-    const title = labels[`${modelName}.${model._id ? "update" : "create"}Modal.title`];
+    const title = labels.get(`${modelName}.${model._id ? "update" : "create"}Modal.title`);
     const derivedState = { show, title, values: {} };
 
     fields.forEach(field => {
       const value =
         (state.show && state.values[field.name]) ||
-        (model[field.name] &&
-          (field.type === "Embedded"
-            ? model[field.name]._id
-            : model[field.name]));
+        (model[field.name] && (field.type === "Embedded" ? model[field.name]._id : model[field.name]));
       derivedState.values[field.name] = value || "";
     });
 
@@ -55,20 +40,14 @@ export default class ModelModal extends Component {
     const { labels, fields } = this.props;
     const { title, show } = this.state;
     return (
-      <Modal
-        className="medic-modal"
-        isOpen={show}
-        keyboard={true}
-        toggle={this.hide}
-        autoFocus={false}
-      >
+      <Modal className="medic-modal" isOpen={show} keyboard={true} toggle={this.hide} autoFocus={false}>
         <ModalHeader toggle={this.hide}>{title}</ModalHeader>
         <ModalBody>
           <Form onSubmit={this.onSubmit}>
             <FormGroup>
               {fields.map(this.renderField)}
               <Button color="dark" block>
-                {labels["global.save"]}
+                {labels.get("global.save")}
               </Button>
             </FormGroup>
           </Form>
@@ -109,9 +88,9 @@ export default class ModelModal extends Component {
     }
     return (
       <React.Fragment key={name}>
-        <Label for={name}>{labels[`${modelName}.${name}`]}</Label>
+        <Label for={name}>{labels.get(`${modelName}.${name}`)}</Label>
         <Tooltip
-          tooltip={labels["field.requiredIndicator"]}
+          tooltip={labels.get("field.requiredIndicator")}
           className="required-indicator"
           style={{ display: required ? "" : "none" }}
         />
@@ -156,11 +135,7 @@ ModelModal.propTypes = {
 };
 
 const renderStringField = ({ fieldProps, labels, modelName }) => (
-  <Input
-    type="text"
-    placeholder={labels[`${modelName}.${fieldProps.name}.placeholder`]}
-    {...fieldProps}
-  />
+  <Input type="text" placeholder={labels.get(`${modelName}.${fieldProps.name}.placeholder`)} {...fieldProps} />
 );
 
 const renderEmbeddedField = ({ fieldProps, childModels, ref }) => {
@@ -207,7 +182,7 @@ const renderBooleanField = ({ fieldProps, labels }) => {
         <option key="empty" value="" />
         {[true, false].map(gender => (
           <option key={gender} value={gender}>
-            {labels[`gender.${gender ? "male" : "female"}`]}
+            {labels.get(`gender.${gender ? "male" : "female"}`)}
           </option>
         ))}
       </Input>

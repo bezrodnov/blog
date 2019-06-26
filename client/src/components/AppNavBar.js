@@ -5,14 +5,14 @@ import { Navbar, Nav, NavItem, Container } from "reactstrap";
 
 import ModelUIContext from "../ModelUIContext";
 import SettingsModal from "./SettingsModal";
+import RegisterModal from "./auth/RegisterModal";
+import LoginModal from "./auth/LoginModal";
+import Logout from "./auth/Logout";
+
 import Tooltip from "./Tooltip";
 
 class AppNavBar extends Component {
-  state = { showSettings: false };
-  toggleShowSettings = this.toggle.bind(this, "showSettings");
-
   render() {
-    const { showSettings } = this.state;
     const { labels } = this.props.settings;
     const { path } = this.props;
 
@@ -23,18 +23,9 @@ class AppNavBar extends Component {
             <ModelUIContext.Consumer>
               {({ models }) =>
                 models.map(({ name }) => (
-                  <Tooltip
-                    key={name}
-                    tooltip={labels[`nav.${name}s`]}
-                    placement="bottom"
-                  >
+                  <Tooltip key={name} tooltip={labels.get(`nav.${name}s`)} placement="bottom">
                     <NavItem>
-                      <Link
-                        to={getPath(name)}
-                        className={`${name} ${
-                          path === getPath(name) ? "current" : ""
-                        }`}
-                      />
+                      <Link to={getPath(name)} className={`${name} ${path === getPath(name) ? "current" : ""}`} />
                     </NavItem>
                   </Tooltip>
                 ))
@@ -42,23 +33,14 @@ class AppNavBar extends Component {
             </ModelUIContext.Consumer>
           </Nav>
           <div className="global-controls">
-            <span
-              className="global-control fas fa-cog"
-              onClick={this.toggleShowSettings}
-            />
-            <span className="global-control fas fa-sign-out-alt" />
+            <RegisterModal />
+            <LoginModal />
+            <SettingsModal />
+            <Logout />
           </div>
         </Container>
-        <SettingsModal
-          show={showSettings}
-          requestHide={this.toggleShowSettings}
-        />
       </Navbar>
     );
-  }
-
-  toggle(prop) {
-    this.setState({ [prop]: !this.state[prop] });
   }
 }
 

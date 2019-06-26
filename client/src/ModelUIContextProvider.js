@@ -6,7 +6,10 @@ import { connect } from "react-redux";
 import ModelUIContext from "./ModelUIContext";
 import ModelList from "./components/ModelList";
 import StoreManager from "./StoreManager";
+
 import settingsReducer from "./reducers/settingsReducer";
+import authReducer from "./reducers/authReducer";
+import errorReducer from "./reducers/errorReducer";
 
 export default class ModelUIContextProvider extends Component {
   constructor() {
@@ -17,6 +20,8 @@ export default class ModelUIContextProvider extends Component {
       const storeManager = new StoreManager();
       // add custom store entities
       storeManager.addEntity({ name: "settings", reducer: settingsReducer });
+      storeManager.addEntity({ name: "auth", reducer: authReducer });
+      storeManager.addEntity({ name: "error", reducer: errorReducer });
       // add models from the server response
       res.data.forEach(storeManager.addModel.bind(storeManager));
 
@@ -30,11 +35,7 @@ export default class ModelUIContextProvider extends Component {
   }
 
   render() {
-    return (
-      <ModelUIContext.Provider value={this.state}>
-        {this.props.children}
-      </ModelUIContext.Provider>
-    );
+    return <ModelUIContext.Provider value={this.state}>{this.props.children}</ModelUIContext.Provider>;
   }
 }
 

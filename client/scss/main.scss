@@ -29,17 +29,19 @@ body,
     height: 100%;
 
     & > .page {
-      @include easeIn;
-
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      overflow: auto;
+      @include easeOut;
 
-      & > .container {
-        padding: 20px;
-        @include easeIn;
+      &.model-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        @include easeOut;
       }
 
       .model-list {
@@ -59,7 +61,7 @@ body,
       }
 
       .model-list-group {
-        padding: 5px 0px;
+        padding-bottom: 10px;
       }
     }
   }
@@ -67,7 +69,7 @@ body,
   .remove-btn {
     color: set-text-color($primary_color);
     margin-right: 0.5rem;
-    @include easeIn;
+    @include easeOut;
 
     &:hover {
       color: $secondary-color;

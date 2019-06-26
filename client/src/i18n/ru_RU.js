@@ -1,4 +1,7 @@
 export default {
+  "locale.en_EN": "English",
+  "locale.ru_RU": "Русский",
+
   "adb.title": "Медицинская Лаборатория",
 
   "global.add": "Добавить",
@@ -8,14 +11,24 @@ export default {
   "gender.female": "Жен",
   "field.requiredIndicator": "Обязательное поле",
 
-  "locale.en_EN": "English",
-  "locale.ru_RU": "Русский",
+  "registerModal.registerButton": "ОК",
+  "registerModal.title": "Регистрация",
+  "registerModal.tooltip": "Зарегистрироваться",
+
+  "loginModal.loginButton": "ОК",
+  "loginModal.title": "Авторизация",
+  "loginModal.tooltip": "Авторизоваться",
+
+  "nav.login": "Авторизоваться",
+  "nav.logout": "Выйти",
+  "nav.register": "Регистрация",
+  "nav.settings": "Настройки",
 
   "nav.antibiotics": "Антибиотики",
   "nav.antibioticTypes": "Типы Антибиотиков",
   "nav.departments": "Отделения",
   "nav.diagnosiss": "Диагнозы",
-  "nav.materials": "Материалы",
+  "nav.materials": "Биоматериалы",
   "nav.microorganisms": "Микроорганизмы",
   "nav.patientCards": "Карты Пациентов",
 
@@ -34,8 +47,8 @@ export default {
   "diagnosis.createModal.title": "Добавить Диагноз",
   "diagnosis.updateModal.title": "Обновить Диагноз",
 
-  "material.createModal.title": "Добавить материал",
-  "material.updateModal.title": "Обновить материал",
+  "material.createModal.title": "Добавить Биоматериал",
+  "material.updateModal.title": "Обновить Биоматериал",
 
   "microorganism.createModal.title": "Добавить Микроорганизм",
   "microorganism.updateModal.title": "Обновить Микроорганизм",
@@ -58,7 +71,7 @@ export default {
   "diagnosis.name.placeholder": "Название Диагноза",
 
   "material.name": "Название",
-  "material.name.placeholder": "Название Материала",
+  "material.name.placeholder": "Название Биоматериала",
 
   "microorganism.name": "Название",
   "microorganism.name.placeholder": "Название Микроорганизма",
@@ -67,5 +80,9 @@ export default {
   "patientCard.lastName": "Фамилия",
   "patientCard.patronymic": "Отчество",
   "patientCard.birthDate": "Дата Рождения",
-  "patientCard.gender": "Пол"
+  "patientCard.gender": "Пол",
+
+  "user.name": "Имя",
+  "user.email": "E-mail",
+  "user.password": "Пароль"
 };

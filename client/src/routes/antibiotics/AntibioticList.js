@@ -22,11 +22,7 @@ class AntibioticList extends Component {
     return (
       <div className="page">
         <Container>
-          <AntibioticModal
-            show={showModal}
-            antibiotic={selectedAntibiotic}
-            requestHide={this.hideModal}
-          />
+          <AntibioticModal show={showModal} antibiotic={selectedAntibiotic} requestHide={this.hideModal} />
           <ListGroup>
             {antibioticsByType.map(({ type, antibiotics }) => (
               <div key={type} className="model-list-group">
@@ -35,9 +31,7 @@ class AntibioticList extends Component {
                     const { _id, name } = antibiotic;
                     return (
                       <CSSTransition key={_id} timeout={500} classNames="fade">
-                        <ListGroupItem
-                          onClick={this.showModal.bind(this, antibiotic)}
-                        >
+                        <ListGroupItem onClick={this.showModal.bind(this, antibiotic)}>
                           <Button
                             className="remove-btn"
                             color="danger"
@@ -55,7 +49,7 @@ class AntibioticList extends Component {
               </div>
             ))}
             <Button block onClick={this.showModal.bind(this, null)}>
-              {labels["global.add"]}
+              {labels.get("global.add")}
             </Button>
           </ListGroup>
         </Container>

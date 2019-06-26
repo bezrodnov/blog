@@ -89,11 +89,13 @@ body .loading-mask {
     .adb-app nav.navbar .nav-item a.department::after {
       content: "\f1ad"; }
     .adb-app nav.navbar .nav-item a.material::after {
-      content: "\f46b"; }
+      content: "\f471"; }
     .adb-app nav.navbar .nav-item a.microorganism::after {
       content: "\f780"; }
     .adb-app nav.navbar .nav-item a.diagnosis::after {
       content: "\f470"; }
+    .adb-app nav.navbar .nav-item a.analysis::after {
+      content: "\f55c"; }
   .adb-app nav.navbar .global-controls {
     flex: 1;
     display: flex;
@@ -136,7 +138,9 @@ body .loading-mask {
     .adb-app nav.navbar .global-control {
       padding: 0 0.5rem; }
   .adb-app .pages > .page {
-    top: 50px; } }
+    top: 50px; }
+    .adb-app .pages > .page.model-list .toolbar {
+      padding-bottom: 0.5rem; } }
 
 @media screen and (min-width: 768px) {
   .adb-app nav.navbar {
@@ -145,7 +149,9 @@ body .loading-mask {
   .adb-app .global-control {
     padding: 0 1rem; }
   .adb-app .pages > .page {
-    top: 70px; } }
+    top: 70px; }
+    .adb-app .pages > .page.model-list .toolbar {
+      padding-bottom: 1rem; } }
 
 * {
   box-sizing: border-box; }
@@ -187,15 +193,16 @@ body,
   position: relative;
   height: 100%; }
   .adb-app .pages > .page {
-    transition: all 0.5s ease-in;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    overflow: auto; }
-    .adb-app .pages > .page > .container {
-      padding: 20px;
-      transition: all 0.5s ease-in; }
+    transition: all 0.5s ease-out; }
+    .adb-app .pages > .page.model-list {
+      display: flex;
+      flex-direction: column; }
+    .adb-app .pages > .page .container {
+      transition: all 0.5s ease-out; }
     .adb-app .pages > .page .model-list {
       opacity: 0.9; }
       .adb-app .pages > .page .model-list .list-group-item {
@@ -207,12 +214,12 @@ body,
           background-color: #515151;
           color: #eece1a; }
     .adb-app .pages > .page .model-list-group {
-      padding: 5px 0px; }
+      padding-bottom: 10px; }
 
 .adb-app .remove-btn {
   color: #fff;
   margin-right: 0.5rem;
-  transition: all 0.5s ease-in; }
+  transition: all 0.5s ease-out; }
   .adb-app .remove-btn:hover {
     color: #eece1a; }
 

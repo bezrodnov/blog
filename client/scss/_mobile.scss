@@ -11,6 +11,12 @@
 
     .pages > .page {
       top: 50px;
+
+      &.model-list {
+        .toolbar {
+          padding-bottom: 0.5rem;
+        }
+      }
     }
   }
 }
@@ -28,6 +34,12 @@
 
     .pages > .page {
       top: 70px;
+
+      &.model-list {
+        .toolbar {
+          padding-bottom: 1rem;
+        }
+      }
     }
   }
 }

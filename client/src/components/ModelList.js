@@ -12,22 +12,19 @@ class ModelList extends Component {
   };
 
   render() {
-    const {
-      model,
-      modelName,
-      settings,
-      createAction,
-      updateAction,
-      fields,
-      childModels
-    } = this.props;
+    const { model, modelName, settings, createAction, updateAction, fields, childModels } = this.props;
     const { labels, locale } = settings;
     const { items } = model;
 
     const { showModal, selected } = this.state;
     return (
-      <div className="page">
-        <Scrollbars>
+      <div className="page model-list">
+        <Container className="toolbar">
+          <Button block onClick={this.showModal.bind(this, null)} color="dark">
+            {labels.get("global.add")}
+          </Button>
+        </Container>
+        <Scrollbars className="custom-scroll-bars">
           <Container>
             <ListGroup>
               <div className={`model-list-group ${modelName}-model-list-group`}>
@@ -36,9 +33,7 @@ class ModelList extends Component {
                     const { _id, displayName } = item;
                     return (
                       <CSSTransition key={_id} timeout={500} classNames="fade">
-                        <ListGroupItem
-                          onClick={this.showModal.bind(this, item)}
-                        >
+                        <ListGroupItem onClick={this.showModal.bind(this, item)}>
                           <Button
                             className="remove-btn"
                             color="danger"
@@ -54,9 +49,6 @@ class ModelList extends Component {
                   })}
                 </TransitionGroup>
               </div>
-              <Button block onClick={this.showModal.bind(this, null)}>
-                {labels["global.add"]}
-              </Button>
             </ListGroup>
           </Container>
         </Scrollbars>

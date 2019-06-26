@@ -1,41 +1,36 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
-
-// routess
-const patientCards = require("./routes/api/patientCards");
-const antibiotics = require("./routes/api/antibiotics");
-const antibioticTypes = require("./routes/api/antibioticTypes");
-const departments = require("./routes/api/departments");
-const microorganisms = require("./routes/api/microorganisms");
-const materials = require("./routes/api/materials");
-const diagnosiss = require("./routes/api/diagnosiss");
-const model = require("./routes/api/model");
+const config = require("config");
 
 const app = express();
 
 // Bodyparser Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+const db = config.get("mongoURI");
 
 // Connect to Mongo
 mongoose
-  .connect(db)
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
   .then(() => console.log("MongoDB Connected..."))
   .catch(console.log);
 
 // Use Routes
-app.use("/api/patientCards", patientCards);
-app.use("/api/antibiotics", antibiotics);
-app.use("/api/antibioticTypes", antibioticTypes);
-app.use("/api/departments", departments);
-app.use("/api/diagnosiss", diagnosiss);
-app.use("/api/microorganisms", microorganisms);
-app.use("/api/materials", materials);
-app.use("/api/model", model);
+app.use("/api/patientCards", require("./routes/api/patientCards"));
+app.use("/api/antibiotics", require("./routes/api/antibiotics"));
+app.use("/api/antibioticTypes", require("./routes/api/antibioticTypes"));
+app.use("/api/departments", require("./routes/api/departments"));
+app.use("/api/diagnosiss", require("./routes/api/diagnosiss"));
+app.use("/api/microorganisms", require("./routes/api/microorganisms"));
+app.use("/api/materials", require("./routes/api/materials"));
+app.use("/api/model", require("./routes/api/model"));
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
