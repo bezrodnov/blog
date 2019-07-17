@@ -195,7 +195,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Eyecon
+            My Blog
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -252,8 +252,12 @@ function Header(props) {
   );
 }
 
+const mapStateToProps = state => ({
+
+});
+
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(generateAction(LOGOUT)),
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

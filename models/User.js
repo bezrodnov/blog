@@ -11,7 +11,7 @@ const schema = new Schema({
   phone: { type: String },
 });
 
-schema.virtual('fullName').get(function() {
+schema.virtual('name').get(function() {
   return `${this.firstName}${this.lastName ? ' ' : ''}${this.lastName}`;
 });
 
