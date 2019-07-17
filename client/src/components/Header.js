@@ -1,13 +1,14 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -18,6 +19,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
+
+import { fade, makeStyles } from '@material-ui/core/styles';
+
+import { generateAction, LOGOUT } from '../redux/actions';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -88,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Header() {
+function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -130,7 +135,7 @@ export default function Header() {
       <MenuItem onClick={handleMenuClose}>
         <div className={classes.menuIcon}><SettingsIcon /></div>Settings
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
+      <MenuItem onClick={props.logout}>
         <div className={classes.menuIcon}><ExitToAppIcon /></div>Logout
       </MenuItem>
     </Menu>
@@ -246,3 +251,9 @@ export default function Header() {
     </React.Fragment>
   );
 }
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(generateAction(LOGOUT)),
+});
+
+export default connect(null, mapDispatchToProps)(Header);

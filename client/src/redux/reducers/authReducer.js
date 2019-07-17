@@ -9,9 +9,10 @@ import {
   REGISTER_FAIL,
 } from '../actions';
 
+import { getAuthToken } from '../utils';
 
 const initialState = {
-  token: null,
+  token: getAuthToken(),
   isAuthenticated: null,
   isLoading: false,
   user: null,
@@ -44,7 +45,7 @@ export default function(state = initialState, action) {
     case LOGOUT:
     case REGISTER_FAIL:
       return {
-        ...state,
+        token: null,
         user: null,
         isAuthenticated: false,
         isLoading: false,

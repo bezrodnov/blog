@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import {
   loadUserSaga, loginSaga, authErrorSaga,
-  registerSaga, registerFailSaga,
+  registerSaga, registerFailSaga, logoutSaga,
 } from './authSagas';
 
 export default function* saga() {
@@ -11,5 +11,6 @@ export default function* saga() {
     loginSaga(),
     registerSaga(),
     registerFailSaga(),
+    logoutSaga(),
   ]);
 }

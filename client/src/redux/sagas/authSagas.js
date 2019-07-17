@@ -5,7 +5,7 @@ import {
 } from '../utils';
 import {
   LOAD_USER, USER_LOADED, AUTH_ERROR,
-  LOGIN, LOGIN_SUCCESS,
+  LOGIN, LOGIN_SUCCESS, LOGOUT,
   REGISTER, REGISTER_SUCCESS, REGISTER_FAIL,
   SET_ERROR,
 } from '../actions';
@@ -32,9 +32,6 @@ export function* loadUserSaga() {
 
 export function* authErrorSaga() {
   yield takeLatest(AUTH_ERROR, function* (action) {
-    if (window.location.pathname !== '/auth') {
-      yield window.location.pathname = '/auth';
-    }
     const { message } = action.payload;
     if (message) {
       yield putAction(SET_ERROR, { message, id: 'AUTH_ERROR' });
@@ -50,7 +47,6 @@ export function* loginSaga() {
       setAuthToken(token);
       yield putAction(LOGIN_SUCCESS);
       yield putAction(USER_LOADED, { ...user, token });
-      window.location.pathname = '/';
     } catch (error) {
       yield putError(AUTH_ERROR, error);
     }
@@ -64,7 +60,6 @@ export function* registerSaga() {
       const { user, token } = response.data;
       setAuthToken(token);
       yield putAction(REGISTER_SUCCESS);
-      window.location.pathname = '/';
       yield putAction(USER_LOADED, { ...user, token });
     } catch (error) {
       yield putError(REGISTER_FAIL, error);
@@ -78,5 +73,11 @@ export function* registerFailSaga() {
     if (message) {
       yield putAction(SET_ERROR, { message, id: 'REGISTER_ERROR' });
     }
+  });
+}
+
+export function* logoutSaga() {
+  yield takeLatest(LOGOUT, function* (action) {
+    yield setAuthToken();
   });
 }
