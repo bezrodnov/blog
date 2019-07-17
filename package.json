@@ -1,7 +1,7 @@
 {
-  "name": "adb_medic",
+  "name": "blog",
   "version": "1.0.0",
-  "description": "The project is used to store laboratory test results and to gather some analytics",
+  "description": "A regular blog. Built on the MERN stack",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -20,6 +20,9 @@
   ],
   "author": "Aleksey Bezrodnov",
   "license": "MIT",
+  "eslintConfig": {
+    "extends": "fbjs"
+  },
   "devDependencies": {
     "nodemon": "^1.19.1"
   },
