@@ -1,8 +1,11 @@
 import { all } from 'redux-saga/effects';
-import { getUserSaga } from './userSagas';
+import { loadUserSaga, loginSaga, registerSaga, authErrorSaga } from './authSagas';
 
 export default function* saga() {
   yield all([
-    getUserSaga(),
+    loadUserSaga(),
+    loginSaga(),
+    registerSaga(),
+    authErrorSaga(),
   ]);
 }

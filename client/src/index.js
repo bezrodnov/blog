@@ -5,8 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import { Provider } from 'react-redux';
 
-import App from './pages/App';
-import Auth from './pages/Auth';
+import App from './routes/App';
+import Auth from './routes/Auth';
+import PublicRoute from './routes/PublicRoute';
+import PrivateRoute from './routes/PrivateRoute';
+
 import theme from './theme';
 import store from './redux/store';
 
@@ -18,8 +21,8 @@ ReactDOM.render(
       <CssBaseline />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/auth" component={Auth} />
-          <Route path="/" component={App} />
+          <PrivateRoute exact path="/" component={App} />
+          <PublicRoute exact path="/auth" component={Auth} />
         </Switch>
       </BrowserRouter>
     </Provider>

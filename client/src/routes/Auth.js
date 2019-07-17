@@ -40,11 +40,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignInSide() {
+function SignInSide() {
   const classes = useStyles();
 
   const onSubmit = e => {
     e.preventDefault();
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
 
   };
 
@@ -113,3 +115,5 @@ export default function SignInSide() {
     </Grid>
   );
 }
+
+export default SignInSide;

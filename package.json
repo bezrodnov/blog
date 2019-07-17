@@ -20,9 +20,6 @@
   ],
   "author": "Aleksey Bezrodnov",
   "license": "MIT",
-  "eslintConfig": {
-    "extends": "fbjs"
-  },
   "devDependencies": {
     "nodemon": "^1.19.1"
   },

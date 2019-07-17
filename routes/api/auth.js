@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
 
 /**
  * @route GET api/auth/user
- * @desc Get user data
+ * @desc Get user
  * @access Private
  */
 router.get('/user', auth, (req, res) => {
