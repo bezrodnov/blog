@@ -4,7 +4,6 @@ import {
   AUTH_ERROR,
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
   LOGOUT,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -12,6 +11,7 @@ import {
 
 
 const initialState = {
+  token: null,
   isAuthenticated: null,
   isLoading: false,
   user: null,
@@ -28,9 +28,9 @@ export default function(state = initialState, action) {
     case USER_LOADED:
       return {
         ...state,
+        ...action.payload,
         isLoading: false,
         isAuthenticated: true,
-        user: action.payload,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
@@ -41,7 +41,6 @@ export default function(state = initialState, action) {
         isLoading: false,
       };
     case AUTH_ERROR:
-    case LOGIN_FAIL:
     case LOGOUT:
     case REGISTER_FAIL:
       return {
